@@ -76,7 +76,7 @@ MonoBehaviour:
       m_Calls: []
   _shader: {fileID: 4800000, guid: 0758f85608bde4543a44ac4b9ba345e6, type: 3}
   _texture: {fileID: 0}
-  _graphicColor: {r: 1, g: 1, b: 1, a: 0.5019608}
+  _graphicColor: {r: 0.95702577, g: 1, b: 0.09803921, a: 0.5019608}
   _gradientType: 0
   _gradientColor: {r: 1, g: 1, b: 1, a: 1}
   _gradientQuality: 8
@@ -177,6 +177,8 @@ MonoBehaviour:
   m_FlexibleWidth: 0
   m_FlexibleHeight: 0
   m_LayoutPriority: 1
+  m_MaxWidth: -1
+  m_MaxHeight: -1
 --- !u!114 &4547367179797630170
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -220,7 +222,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: cb72760b3a784ab0a7cb7240f37f860c, type: 3}
-  m_Name:
+  m_Name: 
   m_EditorClassIdentifier: PurrUI.Runtime::PurrNet.UI.ColoredGraphic
   _graphic: {fileID: 1217309789902549609}
   _transitionDuration: 0.1
@@ -257,7 +259,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: d2cdbdb91c4540f4aa3df099bf998c39, type: 3}
-  m_Name:
+  m_Name: 
   m_EditorClassIdentifier: PurrUI.Runtime::PurrNet.UI.GraphicOpacity
   _graphic: {fileID: 1217309789902549609}
   _opacity: 0.5019608
@@ -272,7 +274,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: d83035f59de044fc97ddadad4a295e61, type: 3}
-  m_Name:
+  m_Name: 
   m_EditorClassIdentifier: PurrUI.Runtime::PurrNet.UI.ThemedGraphicTone
   _graphic: {fileID: 1217309789902549609}
   _slot: 3
@@ -298,7 +300,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 375555912367545930, guid: cde3956384d4b694a83f0fc7898d2ffd, type: 3}
       propertyPath: _graphic
-      value:
+      value: 
       objectReference: {fileID: 7213169937502962587}
     - target: {fileID: 375555912367545930, guid: cde3956384d4b694a83f0fc7898d2ffd, type: 3}
       propertyPath: _color.color
@@ -389,6 +391,14 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8859756083255496746, guid: cde3956384d4b694a83f0fc7898d2ffd, type: 3}
+      propertyPath: m_fontAsset
+      value: 
+      objectReference: {fileID: 11400000, guid: e0b7e1ce6bf52d643a849da35aeaff87, type: 2}
+    - target: {fileID: 8859756083255496746, guid: cde3956384d4b694a83f0fc7898d2ffd, type: 3}
+      propertyPath: m_fontStyle
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8859756083255496746, guid: cde3956384d4b694a83f0fc7898d2ffd, type: 3}
       propertyPath: m_fontColor.b
       value: 0.101960786
       objectReference: {fileID: 0}
@@ -401,8 +411,16 @@ PrefabInstance:
       value: 0.09019608
       objectReference: {fileID: 0}
     - target: {fileID: 8859756083255496746, guid: cde3956384d4b694a83f0fc7898d2ffd, type: 3}
+      propertyPath: m_sharedMaterial
+      value: 
+      objectReference: {fileID: -4386808283515517355, guid: e0b7e1ce6bf52d643a849da35aeaff87, type: 2}
+    - target: {fileID: 8859756083255496746, guid: cde3956384d4b694a83f0fc7898d2ffd, type: 3}
       propertyPath: m_fontColor32.rgba
       value: 4279900183
+      objectReference: {fileID: 0}
+    - target: {fileID: 8859756083255496746, guid: cde3956384d4b694a83f0fc7898d2ffd, type: 3}
+      propertyPath: m_hasFontAssetChanged
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8967047083258821514, guid: cde3956384d4b694a83f0fc7898d2ffd, type: 3}
       propertyPath: m_Name
@@ -439,7 +457,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 144364927656772408, guid: 8e44e060b9566d54faf5cbc7afc93813, type: 3}
       propertyPath: _graphic
-      value:
+      value: 
       objectReference: {fileID: 6304920156853765882}
     - target: {fileID: 144364927656772408, guid: 8e44e060b9566d54faf5cbc7afc93813, type: 3}
       propertyPath: _color.color
@@ -534,6 +552,10 @@ PrefabInstance:
       value: Label
       objectReference: {fileID: 0}
     - target: {fileID: 8859756083255496746, guid: 8e44e060b9566d54faf5cbc7afc93813, type: 3}
+      propertyPath: m_fontStyle
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 8859756083255496746, guid: 8e44e060b9566d54faf5cbc7afc93813, type: 3}
       propertyPath: m_fontColor.b
       value: 0.33962262
       objectReference: {fileID: 0}
@@ -580,7 +602,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: d83035f59de044fc97ddadad4a295e61, type: 3}
-  m_Name:
+  m_Name: 
   m_EditorClassIdentifier: PurrUI.Runtime::PurrNet.UI.ThemedGraphicTone
   _graphic: {fileID: 6304920156853765882}
   _slot: 0

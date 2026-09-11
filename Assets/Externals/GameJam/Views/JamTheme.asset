@@ -14,12 +14,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: PurrUI.Runtime::PurrNet.UI.ColorPalette
   _black: {r: 0.019607844, g: 0.023529414, b: 0.023529414, a: 1}
   _white: {r: 1, g: 1, b: 1, a: 1}
-  _muted: {r: 0.62352943, g: 0.62352943, b: 0.6627451, a: 1}
+  _muted: {r: 0.44025147, g: 0.44025147, b: 0.44025147, a: 1}
   _background: {r: 0.019607844, g: 0.023529414, b: 0.023529414, a: 1}
   _foreground: {r: 1, g: 1, b: 1, a: 1}
   _surface: {r: 0.09019608, g: 0.09411766, b: 0.10196079, a: 1}
   _surfaceForeground: {r: 1, g: 1, b: 1, a: 1}
-  _accent: {r: 0.9803922, g: 1, b: 0, a: 1}
+  _accent: {r: 0.8490566, g: 0.5922998, b: 0.2483089, a: 1}
   _accentForeground: {r: 0, g: 0, b: 0, a: 1}
   _success: {r: 0.09019608, g: 0.78823537, b: 0.3921569, a: 1}
   _successForeground: {r: 0.09411766, g: 0.09411766, b: 0.10588236, a: 1}

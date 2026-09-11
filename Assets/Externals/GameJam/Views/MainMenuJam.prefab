@@ -280,7 +280,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: 2afd8dd9d4952324daff0c3f1855ca68, type: 3}
+  m_Sprite: {fileID: 21300000, guid: b4d4ee80f504ef542a109b5f59c2df56, type: 3}
   m_Type: 0
   m_PreserveAspect: 1
   m_FillCenter: 1
@@ -3887,7 +3887,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8859756083255496746, guid: cde3956384d4b694a83f0fc7898d2ffd, type: 3}
       propertyPath: m_text
-      value: PurrNet
+      value: Lobby Template graciously provided by PurrNet
       objectReference: {fileID: 0}
     - target: {fileID: 8859756083255496746, guid: cde3956384d4b694a83f0fc7898d2ffd, type: 3}
       propertyPath: m_fontStyle

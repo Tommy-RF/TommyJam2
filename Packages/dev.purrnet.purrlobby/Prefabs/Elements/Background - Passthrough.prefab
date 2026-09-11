@@ -10,11 +10,23 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 327510159877816368, guid: 0eeb8b4303f29854cbf12a1cc87cb9c3, type: 3}
       propertyPath: m_Color.a
+      value: 0.6
+      objectReference: {fileID: 0}
+    - target: {fileID: 327510159877816368, guid: 0eeb8b4303f29854cbf12a1cc87cb9c3, type: 3}
+      propertyPath: m_Color.b
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 327510159877816368, guid: 0eeb8b4303f29854cbf12a1cc87cb9c3, type: 3}
+      propertyPath: m_Color.g
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 327510159877816368, guid: 0eeb8b4303f29854cbf12a1cc87cb9c3, type: 3}
+      propertyPath: m_Color.r
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 4064444047529205251, guid: 0eeb8b4303f29854cbf12a1cc87cb9c3, type: 3}
       propertyPath: _graphic
-      value:
+      value: 
       objectReference: {fileID: 7798970005536736369}
     - target: {fileID: 6043758412650494352, guid: 0eeb8b4303f29854cbf12a1cc87cb9c3, type: 3}
       propertyPath: m_Name
@@ -139,5 +151,5 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
-  m_Name:
+  m_Name: 
   m_EditorClassIdentifier: UnityEngine.UI::UnityEngine.UI.Image
