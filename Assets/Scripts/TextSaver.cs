@@ -50,28 +50,18 @@ public class TextSaver : NetworkBehaviour
     }
 
 
-    public void ClientTextSubmit()
+    [ServerRpc(requireOwnership: false)]
+    public void AddToList(string text)
     {
-        if (!isServer)
-        {
-            string ClientString = inputField.text;
-        }
-        SubmitText();
+        myList.Add(text);
     }
 
-    [ServerRpc]
+
     public void SubmitText()
     {
-        if (isServer)
-        {
-            string ClientString = inputField.text;
-            myList.Add(ClientString);
-        }
 
-        if (!isServer)
-        {
-            myList.Add(ClientString);
-        }
+        AddToList(inputField.text);
+
     }
 
 

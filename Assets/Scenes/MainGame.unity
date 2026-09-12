@@ -383,7 +383,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 709186660}
         m_TargetAssemblyTypeName: TextSaver, Assembly-CSharp
-        m_MethodName: ClientTextSubmit
+        m_MethodName: SubmitText
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
