@@ -235,6 +235,12 @@
       },
       "url": "https://packages.unity.com"
     },
+    "com.veriorpies.parrelsync": {
+      "version": "file:C:/Users/karat/Downloads/ParrelSync-master/ParrelSync-master/ParrelSync",
+      "depth": 0,
+      "source": "local",
+      "dependencies": {}
+    },
     "dev.purrnet.purrlobby": {
       "version": "file:dev.purrnet.purrlobby",
       "depth": 0,
