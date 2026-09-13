@@ -5,8 +5,31 @@ public class GameManager : NetworkBehaviour
 {
 
     public GameObject ExampleObject;
+    public GameObject ReadyToPlayObject;
+
+    public int PlayerCount;
 
 
+    protected override void OnSpawned()
+    {
+        base.OnSpawned();
+        CountPlayers();
+        
+    }
+
+    public void CountPlayers()
+    {
+        PlayerCount = networkManager.playerCount;
+        
+    }
+
+    public void ArePlayersReady()
+    {
+        CountPlayers();
+
+
+
+    }
 
 
     [ObserversRpc]

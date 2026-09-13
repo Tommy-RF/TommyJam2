@@ -10,8 +10,8 @@ public class PlayerPhysics : NetworkBehaviour
     [SerializeField] private float bounceForce = 10f;
     [SerializeField] private Rigidbody rigidbody;
     //public float maxPower = 10f;
-    private bool isDragging = false;
-    private Vector3 startPoint;
+    //private bool isDragging = false;
+    //private Vector3 startPoint;
 
     public Material P1;
     public Material P2;
@@ -133,7 +133,7 @@ public class PlayerPhysics : NetworkBehaviour
         }
         Debug.Log("Launching!!!");
         Vector3 direction = (target - transform.position).normalized;
-        GetComponent<Rigidbody>().AddForce(direction * launchForce, ForceMode.Impulse);
+        GetComponent<Rigidbody>().AddForce(direction * launchSpeed, ForceMode.Impulse);
 
     }
 
@@ -204,6 +204,25 @@ public class PlayerPhysics : NetworkBehaviour
 
         var direction = (transform.position - other.transform.position).normalized;
         rigidbody.AddForce(direction * bounceForce, ForceMode.Impulse);
+
+    }
+
+    private void OnTriggerEnter(Collider other)
+    {
+        if (other.CompareTag("Ready"))
+        {
+            // Handle collection
+            Debug.Log($"Player {owner.Value.id} is ready to start!");
+        }
+    }
+
+    private void OnTriggerExit(Collider other)
+    {
+        if (other.CompareTag("Ready"))
+        {
+            // Handle collection
+            Debug.Log($"Player {owner.Value.id} is left the start area!");
+        }
     }
 
     //Struct in which we hold input data. This isn't necessary, just a clean approach
