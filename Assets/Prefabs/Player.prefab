@@ -306,9 +306,10 @@ GameObject:
   - component: {fileID: 4832460139094680478}
   - component: {fileID: 443151593872131508}
   - component: {fileID: -2520152946284792176}
+  - component: {fileID: 1373729970803682993}
   m_Layer: 0
   m_Name: Player
-  m_TagString: Untagged
+  m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -414,11 +415,8 @@ MonoBehaviour:
   _parent: {fileID: 0}
   _invertedPathToNearestParent: 
   _directChildren: []
-  moveForce: 20
-  jumpForce: 10
   bounceForce: 40
   rigidbody: {fileID: 1333391732901364372}
-  maxPower: 10
   P1: {fileID: 2100000, guid: 4396bb87f0803a84ca5ccbd7fb7d4844, type: 2}
   P2: {fileID: 2100000, guid: d257a3d0916dc6b4f8fb5d14225b32e6, type: 2}
   P3: {fileID: 2100000, guid: cbaff2638744d3e448babfcf1d7ea9f1, type: 2}
@@ -453,3 +451,27 @@ SphereCollider:
   serializedVersion: 3
   m_Radius: 0.5
   m_Center: {x: 0, y: 0.5, z: 0}
+--- !u!114 &1373729970803682993
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4354883868785491685}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5582282072f87493d92e6ca79f702bca, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::PlayerNetwork
+  _networkRules: {fileID: 0}
+  _visitiblityRules: {fileID: 0}
+  _isSetup: 0
+  _prefabId: -2147483648
+  _hasPrefabScope: 0
+  _prefabScope: 0
+  _componentIndex: -2147483648
+  _shouldBePooled: 0
+  _parent: {fileID: 0}
+  _invertedPathToNearestParent: 
+  _directChildren: []
+  GameManager: {fileID: 6647649761607006406, guid: efbfcf2ce6f4fd140a82a9d0030882c0, type: 3}

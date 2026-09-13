@@ -1,3 +1,6 @@
+// Handles physics for each player-ball.
+// Checks for collisions with other players and the "Ready" trigger area.
+
 using PurrNet;
 using PurrNet.Transports;
 using TMPro;
@@ -12,6 +15,8 @@ public class PlayerPhysics : NetworkBehaviour
     //public float maxPower = 10f;
     //private bool isDragging = false;
     //private Vector3 startPoint;
+
+    private PlayerNetwork playerNetwork;
 
     public Material P1;
     public Material P2;
@@ -31,6 +36,7 @@ public class PlayerPhysics : NetworkBehaviour
 
     protected override void OnSpawned(bool asServer)
     {
+        playerNetwork = GetComponent<PlayerNetwork>();
         base.OnSpawned(asServer);
         if (asServer)
             return;
@@ -212,7 +218,7 @@ public class PlayerPhysics : NetworkBehaviour
         if (other.CompareTag("Ready"))
         {
             // Handle collection
-            Debug.Log($"Player {owner.Value.id} is ready to start!");
+            playerNetwork.isReady = true;
         }
     }
 
@@ -221,7 +227,7 @@ public class PlayerPhysics : NetworkBehaviour
         if (other.CompareTag("Ready"))
         {
             // Handle collection
-            Debug.Log($"Player {owner.Value.id} is left the start area!");
+            playerNetwork.isReady = false;
         }
     }
 
@@ -230,7 +236,4 @@ public class PlayerPhysics : NetworkBehaviour
     {
         public Vector3 movement;
     }
-
-
-
 }
