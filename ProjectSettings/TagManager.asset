@@ -6,6 +6,7 @@ TagManager:
   tags:
   - GameManager
   - Ready
+  - Ruler
   layers:
   - Default
   - TransparentFX

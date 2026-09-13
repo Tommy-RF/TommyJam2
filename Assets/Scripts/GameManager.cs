@@ -31,7 +31,8 @@ public class GameManager : NetworkBehaviour
 
     }
 
-
+    //Coco, this Observer's RPC is what is run to make sure everyone gets the same thing.
+    //We will need to use Target RPCs to tell clients that their turn is here or not... I think.
     [ObserversRpc]
     public void change_state(string state, int TurnPlayer)
     {
@@ -44,6 +45,8 @@ public class GameManager : NetworkBehaviour
         {
             ExampleObject.SetActive(true);
         }
+
+        CountPlayers();
 
     }
 
