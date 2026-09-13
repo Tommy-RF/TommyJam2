@@ -33,6 +33,7 @@ public class PlayerPhysics : NetworkBehaviour
     public float targetValue;
     public bool isLaunching;
     public Vector3 targetPos;
+    public TrailRenderer trail;
 
     protected override void OnSpawned(bool asServer)
     {
@@ -64,6 +65,7 @@ public class PlayerPhysics : NetworkBehaviour
         var colors = new[] { P1, P2, P3, P4 };
         int index = (int)(owner.Value.id % (ulong)colors.Length - 1);
         GetComponentInChildren<MeshRenderer>().material = colors[index];
+        trail.material = colors[index];
     }
 
     protected override void OnDestroy()
@@ -105,6 +107,16 @@ public class PlayerPhysics : NetworkBehaviour
             isLaunching = true;
             launchForce = currentValue;
         }
+
+        //if (this.rigidbody.linearVelocity.sqrMagnitude > 0.01f)
+        //{
+        //    trail.emitting = true;
+
+        //}
+        //else
+        //{
+        //    trail.emitting = false;
+        //}
     }
 
     private void OnTick(bool asServer)
