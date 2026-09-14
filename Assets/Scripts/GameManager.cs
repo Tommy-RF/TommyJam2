@@ -21,6 +21,8 @@ public class GameManager : NetworkBehaviour
     public int PlayerReadyCount;
     public int PlayerCount;
 
+    private int[] _PlayerBallPosition = new int[0];
+
     // The countdown is triggered when all players are ready (in the "Ready" area).
     private const float _COUNTDOWN_TIME = 3f;
     private SyncVar<float> _countdownTimer = new SyncVar<float>(_COUNTDOWN_TIME);
@@ -96,6 +98,8 @@ public class GameManager : NetworkBehaviour
         if (_isQuestionPicked == false)
         {
             UpdateText();
+            GetPlayerBallPositions();
+            GetProximityToAnswers();
         }
     }
 
@@ -182,6 +186,38 @@ public class GameManager : NetworkBehaviour
         TitleText.SetActive(true);
         AnswerMinText.SetActive(false);
         AnswerMaxText.SetActive(false);
+    }
+
+    // Gets the ball positions of all players and stores them in the _PlayerBallPosition array.
+    [ServerRpc(Channel.Unreliable)]
+    private void GetPlayerBallPositions()
+    {
+        var playerIndex = 0;
+
+        _PlayerBallPosition = new int[PlayerNetwork.allPlayers.Count];
+
+        foreach (var player in PlayerNetwork.allPlayers)
+            {
+                Debug.Log($"Player {player.Value.id} ball position: {player.Value.ballPosition}");
+                _PlayerBallPosition[playerIndex] = player.Value.ballPosition;
+
+                playerIndex++;
+            }
+    }
+
+    // Calculates the proximity of each ball to the min and max answer positions.
+    [ServerRpc(Channel.Unreliable)]
+    private void GetProximityToAnswers()
+    {
+        foreach (var player in PlayerNetwork.allPlayers)
+        {
+            var playerBallPosition = player.Value.ballPosition;
+
+            var distanceToMin = Mathf.Abs(playerBallPosition - AnswerMinText.transform.position.x);
+            var distanceToMax = Mathf.Abs(playerBallPosition - AnswerMaxText.transform.position.x);
+
+            Debug.Log($"Player {player.Value.id} ball position: {playerBallPosition}, distance to min answer: {distanceToMin}, distance to max answer: {distanceToMax}");
+        }
     }
 
 }

@@ -33,7 +33,6 @@ public class PlayerPhysics : NetworkBehaviour
     public float targetValue;
     public bool isLaunching;
     public Vector3 targetPos;
-    public TrailRenderer trail;
 
     protected override void OnSpawned(bool asServer)
     {
@@ -65,7 +64,6 @@ public class PlayerPhysics : NetworkBehaviour
         var colors = new[] { P1, P2, P3, P4 };
         int index = (int)(owner.Value.id % (ulong)colors.Length - 1);
         GetComponentInChildren<MeshRenderer>().material = colors[index];
-        trail.material = colors[index];
     }
 
     protected override void OnDestroy()
@@ -98,25 +96,19 @@ public class PlayerPhysics : NetworkBehaviour
         }
 
         currentValue = Mathf.Lerp(currentValue, targetValue, smoothSpeed * Time.deltaTime);
-            launchForceText.GetComponent<TMP_Text>().SetText(currentValue.ToString("F0"));
+        launchForceText.GetComponent<TMP_Text>().SetText(currentValue.ToString("F0"));
 
-        
         if (groundPlane.Raycast(ray, out float enter) && Input.GetMouseButtonUp(0) && this.rigidbody.linearVelocity.sqrMagnitude < 0.01f)
         {
             targetPos = ray.GetPoint(enter);
             isLaunching = true;
             launchForce = currentValue;
         }
+    }
 
-        //if (this.rigidbody.linearVelocity.sqrMagnitude > 0.01f)
-        //{
-        //    trail.emitting = true;
-
-        //}
-        //else
-        //{
-        //    trail.emitting = false;
-        //}
+    private void FixedUpdate()
+    {
+        //playerNetwork.ballPosition = (int) transform.position.x;
     }
 
     private void OnTick(bool asServer)
@@ -225,6 +217,8 @@ public class PlayerPhysics : NetworkBehaviour
 
     }
 
+    // The "Ready" trigger area is the square in the middle of the map. When a player enters it, they are marked as ready. When they leave, they are marked as not ready.
+    // This is used to determine when all players are ready to start the game. The GameManager script checks the isReady variable of each player to determine if the game can start.
     private void OnTriggerEnter(Collider other)
     {
         if (other.CompareTag("Ready"))
