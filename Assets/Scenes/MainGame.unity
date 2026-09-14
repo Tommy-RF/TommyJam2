@@ -3894,6 +3894,34 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1380115582}
   m_CullTransparentMesh: 1
+--- !u!1 &1447048911 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 8028484849970348258, guid: efbfcf2ce6f4fd140a82a9d0030882c0, type: 3}
+  m_PrefabInstance: {fileID: 3200208926240306001}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &1447048914
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1447048911}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5681fe548eb84304ea28a286062791f5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: PurrNet.Runtime::PurrNet.NetworkIdentity
+  _networkRules: {fileID: 0}
+  _visitiblityRules: {fileID: 0}
+  _isSetup: 0
+  _prefabId: -2147483648
+  _hasPrefabScope: 0
+  _prefabScope: 0
+  _componentIndex: -2147483648
+  _shouldBePooled: 0
+  _parent: {fileID: 0}
+  _invertedPathToNearestParent: 
+  _directChildren: []
 --- !u!1 &1492178278
 GameObject:
   m_ObjectHideFlags: 0
@@ -5405,6 +5433,22 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6647649761607006406, guid: efbfcf2ce6f4fd140a82a9d0030882c0, type: 3}
+      propertyPath: ReadyArea
+      value: 
+      objectReference: {fileID: 1852512389}
+    - target: {fileID: 6647649761607006406, guid: efbfcf2ce6f4fd140a82a9d0030882c0, type: 3}
+      propertyPath: ReadyText
+      value: 
+      objectReference: {fileID: 792269767}
+    - target: {fileID: 6647649761607006406, guid: efbfcf2ce6f4fd140a82a9d0030882c0, type: 3}
+      propertyPath: TitleText
+      value: 
+      objectReference: {fileID: 646662642}
+    - target: {fileID: 6647649761607006406, guid: efbfcf2ce6f4fd140a82a9d0030882c0, type: 3}
+      propertyPath: BottomText
+      value: 
+      objectReference: {fileID: 147889088}
+    - target: {fileID: 6647649761607006406, guid: efbfcf2ce6f4fd140a82a9d0030882c0, type: 3}
       propertyPath: ExampleObject
       value: 
       objectReference: {fileID: 1358317174}
@@ -5419,7 +5463,10 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 8028484849970348258, guid: efbfcf2ce6f4fd140a82a9d0030882c0, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1447048914}
   m_SourcePrefab: {fileID: 100100000, guid: efbfcf2ce6f4fd140a82a9d0030882c0, type: 3}
 --- !u!1001 &6381394025400310523
 PrefabInstance:
