@@ -8,11 +8,5 @@ using UnityEngine;
 public class PlayerNetwork : PlayerIdentity <PlayerNetwork>
 {
     public bool isReady;
-
     [SerializeField] private GameManager GameManager;
-
-    void Start()
-    {
-        GameManager.CheckPlayers();
-    }
 }

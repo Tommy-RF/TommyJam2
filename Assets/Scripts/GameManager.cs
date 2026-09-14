@@ -1,4 +1,5 @@
 // Handles the server-side game state and works with the PlayerNetwork script to manage player readiness.
+// Currently also manages UI stuff... Should probably be put into a separate class... Oh well...
 
 using PurrNet;
 using PurrNet.Transports;
@@ -9,10 +10,13 @@ public class GameManager : NetworkBehaviour
 
     public GameObject ExampleObject;
     public GameObject ReadyToPlayObject;
+
     [SerializeField] private GameObject ReadyArea;
     [SerializeField] private GameObject ReadyText;
     [SerializeField] private GameObject TitleText;
     [SerializeField] private GameObject BottomText; // xD
+    [SerializeField] private GameObject AnswerMinText;
+    [SerializeField] private GameObject AnswerMaxText;
 
     public int PlayerReadyCount;
     public int PlayerCount;
@@ -33,15 +37,14 @@ public class GameManager : NetworkBehaviour
     protected override void OnSpawned()
     {
         base.OnSpawned();
-            _LoadQuestions();
-    }
+        _LoadQuestions();
 
-    public void CheckPlayers()
-    {
-        foreach(var player in PlayerNetwork.allPlayers)
-        {
-            Debug.Log($"Player added: {player.Value.id}.");
-        }
+        // This is a lambda expression.
+        // Whenever the _currentQuestionIndex SyncVar changes, the UpdateQuestionValues method is called to update the question values on all clients.
+        // The _ means that we don't want to pass any parameters to the UpdateQuestionValues method. We just want to call it whenever the _currentQuestionIndex changes.
+        // I had to do this because there was an issue with the SyncVar and UpdateQuestionValues() method being called in the wrong order (network race hazard).
+        // This way ensures that the question values are updated only after the _currentQuestionIndex changes, and not before.
+        _currentQuestionIndex.onChanged += _ => UpdateQuestionValues();
     }
 
     // Loads all questions from the Resources folder into the _allQuestions array. This is called on the server when the GameManager is spawned.
@@ -60,21 +63,31 @@ public class GameManager : NetworkBehaviour
     }
 
     // Gets the current question values from the _allQuestions array and sets the current question values. This is called on the server when a question is picked.
+    [ServerRpc(Channel.Unreliable)]
     public void GetQuestionValues()
     {
         _currentQuestionText.value = _allQuestions[_currentQuestionIndex.value].questionText;
         _currentQuestionAnswer.value = _allQuestions[_currentQuestionIndex.value].answer;
         _currentQuestionAnswerRange.value = _allQuestions[_currentQuestionIndex.value].answerRange;
-        Debug.Log($"Current Question Index: {_currentQuestionIndex.value}");
-        Debug.Log($"Current Question Text: {_allQuestions[_currentQuestionIndex.value].questionText}");
-        Debug.Log($"Current Question Answer: {_allQuestions[_currentQuestionIndex.value].answer}");
-        Debug.Log($"Current Question Answer Range: {_allQuestions[_currentQuestionIndex.value].answerRange}");
+    }
+
+    // This updates the question values on all clients. It is called whenever the _currentQuestionIndex SyncVar changes, via a lambda expression subscription.
+    [ObserversRpc]
+    public void UpdateQuestionValues()
+    {
+        BottomText.GetComponent<TMPro.TMP_Text>().text = _currentQuestionText.value;
+        AnswerMinText.GetComponent<TMPro.TMP_Text>().text = _currentQuestionAnswerRange.value.x.ToString();
+        AnswerMaxText.GetComponent<TMPro.TMP_Text>().text = _currentQuestionAnswerRange.value.y.ToString();
+        AnswerMinText.SetActive(true);
+        AnswerMaxText.SetActive(true);
     }
 
     [ObserversRpc]
     public void SetQuestionText()
     {
         BottomText.GetComponent<TMPro.TMP_Text>().text = _currentQuestionText.value;
+        AnswerMinText.GetComponent<TMPro.TMP_Text>().text = _currentQuestionAnswerRange.value.x.ToString();
+        AnswerMaxText.GetComponent<TMPro.TMP_Text>().text = _currentQuestionAnswerRange.value.y.ToString();
         _isQuestionPicked = true;
     }
 
@@ -84,8 +97,6 @@ public class GameManager : NetworkBehaviour
         {
             UpdateText();
         }
-        Debug.Log("Player ready count: " + PlayerReadyCount);
-        Debug.Log("Player Count: " + PlayerNetwork.allPlayers.Count);
     }
 
     [ServerRpc(Channel.Unreliable)]
@@ -105,28 +116,28 @@ public class GameManager : NetworkBehaviour
                  PlayerReadyCount = playerReadyCount;
                 }
         }
-            
+        
+        // If all players are ready, start the countdown. Otherwise, reset the countdown.
         if(playerReadyCount == PlayerNetwork.allPlayers.Count)
         {
             SetCountdownText();
-            //Debug.Log("It's a match!");
             
             UpdateTimer();
 
             if (_countdownTimer.value <= 0)
             {
-                // Debug.Log("Countdown finished!");
                 ClearText();
                 _PickRandomQuestion();
                 GetQuestionValues();
-                SetQuestionText();
+                if (isServer)
+                {
+                    SetQuestionText();
+                }
             }
-            //Debug.Log("Countdown: " + _countdownTimer.value);
         }
 
         else if(playerReadyCount != PlayerNetwork.allPlayers.Count)
         {
-            //Debug.Log("Resetting!");
             ResetCountdown();
             ShowText();
         }
@@ -169,32 +180,8 @@ public class GameManager : NetworkBehaviour
         ReadyArea.SetActive(true);
         ReadyText.SetActive(true);
         TitleText.SetActive(true);
+        AnswerMinText.SetActive(false);
+        AnswerMaxText.SetActive(false);
     }
 
-    // We will need to use Target RPCs to tell clients that their turn is here or not... I think.
-    /*
-    [ObserversRpc]
-    public void change_state(string state, int TurnPlayer)
-    {
-        if (state == "hide")
-        {
-            ExampleObject.SetActive(false);
-        }
-
-        if (state == "show")
-        {
-            ExampleObject.SetActive(true);
-        }
-    }
-
-    public void CallStateShow()
-    {
-        change_state("show", 1);
-    }
-
-    public void CallStateHide()
-    {
-        change_state("hide", 1);
-    }
-    */
 }
