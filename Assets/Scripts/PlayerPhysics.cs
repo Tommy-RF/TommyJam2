@@ -31,6 +31,7 @@ public class PlayerPhysics : NetworkBehaviour
     public float smoothSpeed = 5f;
     public float currentValue;
     public float targetValue;
+    public float waitForce;
     public bool isLaunching;
     public Vector3 targetPos;
     public TrailRenderer trail;
@@ -83,7 +84,7 @@ public class PlayerPhysics : NetworkBehaviour
         Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
         Plane groundPlane = new Plane(Vector3.up, 0f); // Adjust height as needed
 
-        if (Input.GetMouseButton(0) && this.rigidbody.linearVelocity.sqrMagnitude < 0.01f)
+        if (Input.GetMouseButton(0) && this.rigidbody.linearVelocity.sqrMagnitude < waitForce)
         {
             if (isOwner)
             {
@@ -115,7 +116,7 @@ public class PlayerPhysics : NetworkBehaviour
 
         //}
 
-        if (groundPlane.Raycast(ray, out float enter) && Input.GetMouseButtonUp(0) && this.rigidbody.linearVelocity.sqrMagnitude < 0.01f)
+        if (groundPlane.Raycast(ray, out float enter) && Input.GetMouseButtonUp(0) && this.rigidbody.linearVelocity.sqrMagnitude < waitForce)
         {
             targetPos = ray.GetPoint(enter);
             isLaunching = true;
@@ -153,7 +154,7 @@ public class PlayerPhysics : NetworkBehaviour
     [ServerRpc(Channel.Unreliable)]
     private void LaunchBall(Vector3 target, float launchSpeed)
     {
-        if (this.rigidbody.linearVelocity.sqrMagnitude > 0.01f)
+        if (this.rigidbody.linearVelocity.sqrMagnitude > waitForce)
         {
             Debug.Log("Already Launched!");
             return;
