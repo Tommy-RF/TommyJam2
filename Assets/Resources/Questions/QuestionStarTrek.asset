@@ -10,10 +10,10 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 4de24fc4d0062416ea331546dcd275bd, type: 3}
-  m_Name: QuestionUN
+  m_Name: QuestionStarTrek
   m_EditorClassIdentifier: Assembly-CSharp::QuestionScriptableObject
-  id: 0
-  questionText: How many full member-states does the UN have?
-  answer: 193
-  answerRange: {x: 50, y: 400}
-  image: {fileID: 21300000, guid: 416a111804d60bb4082e69ca69fa5340, type: 3}
+  id: 9
+  questionText: 'How many episodes of Star Trek: The Next Generation were made?'
+  answer: 176
+  answerRange: {x: 10, y: 200}
+  image: {fileID: 21300000, guid: 0d262458a1dfc4e46a84949a81f032bc, type: 3}

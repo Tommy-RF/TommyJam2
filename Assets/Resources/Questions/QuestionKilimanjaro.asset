@@ -16,3 +16,4 @@ MonoBehaviour:
   questionText: In meters, how far above sea level is the peak of Mt. Kilimanjaro?
   answer: 5895
   answerRange: {x: 1000, y: 10000}
+  image: {fileID: 21300000, guid: f3b7b579988b4e74987a11401e8797fe, type: 3}

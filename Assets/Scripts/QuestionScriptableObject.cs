@@ -8,4 +8,5 @@ public class QuestionScriptableObject : ScriptableObject
     public string questionText;
     public int answer;
     public Vector2 answerRange;
+    public Sprite image;
 }

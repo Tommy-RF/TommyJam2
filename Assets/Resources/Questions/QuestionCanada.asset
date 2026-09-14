@@ -16,3 +16,4 @@ MonoBehaviour:
   questionText: How many territories and provinces does Canada have?
   answer: 13
   answerRange: {x: 5, y: 50}
+  image: {fileID: 21300000, guid: 5f6898f4131443b4da76aa58cfd48832, type: 3}

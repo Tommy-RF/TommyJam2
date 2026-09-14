@@ -16,3 +16,4 @@ MonoBehaviour:
   questionText: How many signs does the Zodiac comprise?
   answer: 12
   answerRange: {x: 6, y: 24}
+  image: {fileID: 21300000, guid: e396319a11ad9294c931feffb19726b5, type: 3}

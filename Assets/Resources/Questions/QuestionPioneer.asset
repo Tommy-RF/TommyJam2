@@ -10,10 +10,10 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 4de24fc4d0062416ea331546dcd275bd, type: 3}
-  m_Name: QuestionUN
+  m_Name: QuestionPioneer
   m_EditorClassIdentifier: Assembly-CSharp::QuestionScriptableObject
-  id: 0
-  questionText: How many full member-states does the UN have?
-  answer: 193
-  answerRange: {x: 50, y: 400}
-  image: {fileID: 21300000, guid: 416a111804d60bb4082e69ca69fa5340, type: 3}
+  id: 15
+  questionText: Pioneer 10 launched into space in 1972. What year did it pass by Neptune?
+  answer: 1983
+  answerRange: {x: 1972, y: 2025}
+  image: {fileID: 21300000, guid: e396319a11ad9294c931feffb19726b5, type: 3}
