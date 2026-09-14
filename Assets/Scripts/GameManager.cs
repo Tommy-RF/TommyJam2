@@ -21,11 +21,21 @@ public class GameManager : NetworkBehaviour
     public int PlayerReadyCount;
     public int PlayerCount;
 
+    public GameObject Ruler;
+    public GameObject BackgroundImage;
+    
+    public int RoundNumber;
+    public int TurnNumber;
+
     private int[] _PlayerBallPosition = new int[0];
 
     // The countdown is triggered when all players are ready (in the "Ready" area).
     private const float _COUNTDOWN_TIME = 3f;
     private SyncVar<float> _countdownTimer = new SyncVar<float>(_COUNTDOWN_TIME);
+
+    // The countdown is for each player during their turn. The turn will change when the timer has elapsed.
+    private const float _QUESTIONCOUNTDOWN_TIME = 10f;
+    private SyncVar<float> _questionCountdownTimer = new SyncVar<float>(_QUESTIONCOUNTDOWN_TIME);
 
     // Questions are stored in a ScriptableObject array, which is loaded from the Resources folder. The questions are picked randomly and sent to all clients.
     private QuestionScriptableObject[] _allQuestions = new QuestionScriptableObject[0];
@@ -33,6 +43,7 @@ public class GameManager : NetworkBehaviour
     private SyncVar<string> _currentQuestionText = new SyncVar<string>("");
     private SyncVar<int> _currentQuestionAnswer = new SyncVar<int>(0);
     private SyncVar<Vector2> _currentQuestionAnswerRange = new SyncVar<Vector2>(new Vector2(0, 0));
+    //private SyncTextureAsset _currentQuestionImage = new SyncTextureAsset(true);
 
     private bool _isQuestionPicked = false;
 
@@ -71,6 +82,7 @@ public class GameManager : NetworkBehaviour
         _currentQuestionText.value = _allQuestions[_currentQuestionIndex.value].questionText;
         _currentQuestionAnswer.value = _allQuestions[_currentQuestionIndex.value].answer;
         _currentQuestionAnswerRange.value = _allQuestions[_currentQuestionIndex.value].answerRange;
+        //_currentQuestionImage = _allQuestions[_currentQuestionIndex.value].image;
     }
 
     // This updates the question values on all clients. It is called whenever the _currentQuestionIndex SyncVar changes, via a lambda expression subscription.
@@ -87,10 +99,12 @@ public class GameManager : NetworkBehaviour
     [ObserversRpc]
     public void SetQuestionText()
     {
+        //BackgroundImage.GetComponent<SpriteRenderer>().sprite = _currentQuestionImage;
         BottomText.GetComponent<TMPro.TMP_Text>().text = _currentQuestionText.value;
         AnswerMinText.GetComponent<TMPro.TMP_Text>().text = _currentQuestionAnswerRange.value.x.ToString();
         AnswerMaxText.GetComponent<TMPro.TMP_Text>().text = _currentQuestionAnswerRange.value.y.ToString();
         _isQuestionPicked = true;
+
     }
 
     public void FixedUpdate()
@@ -131,6 +145,8 @@ public class GameManager : NetworkBehaviour
             if (_countdownTimer.value <= 0)
             {
                 ClearText();
+                Ruler.SetActive(true);
+                BackgroundImage.SetActive(true);
                 _PickRandomQuestion();
                 GetQuestionValues();
                 if (isServer)
@@ -157,6 +173,18 @@ public class GameManager : NetworkBehaviour
     public void ResetCountdown()
     {
         _countdownTimer.value = _COUNTDOWN_TIME;
+    }
+
+    [ServerRpc(Channel.Unreliable)]
+    public void UpdateQuestionTimer()
+    {
+        _questionCountdownTimer.value -= Time.deltaTime;
+    }
+
+    [ServerRpc(Channel.Unreliable)]
+    public void ResetQuestionCountdown()
+    {
+        _questionCountdownTimer.value = _QUESTIONCOUNTDOWN_TIME;
     }
 
     [ObserversRpc]
