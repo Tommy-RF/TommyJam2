@@ -186,7 +186,7 @@ BoxCollider:
   m_LayerOverridePriority: 0
   m_IsTrigger: 0
   m_ProvidesContacts: 0
-  m_Enabled: 1
+  m_Enabled: 0
   serializedVersion: 3
   m_Size: {x: 1, y: 1, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
@@ -367,7 +367,7 @@ BoxCollider:
   m_LayerOverridePriority: 0
   m_IsTrigger: 0
   m_ProvidesContacts: 0
-  m_Enabled: 1
+  m_Enabled: 0
   serializedVersion: 3
   m_Size: {x: 1, y: 1, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
@@ -4242,6 +4242,64 @@ MonoBehaviour:
   _parent: {fileID: 0}
   _invertedPathToNearestParent: 
   _directChildren: []
+--- !u!114 &1447048917
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1447048911}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5cb763cfb0fbf2c44b3587223c4aad1b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: PurrNet.Runtime::PurrNet.NetworkReflection
+  _networkRules: {fileID: 0}
+  _visitiblityRules: {fileID: 0}
+  _isSetup: 0
+  _prefabId: -2147483648
+  _hasPrefabScope: 0
+  _prefabScope: 0
+  _componentIndex: -2147483648
+  _shouldBePooled: 0
+  _parent: {fileID: 0}
+  _invertedPathToNearestParent: 
+  _directChildren: []
+  _trackedBehaviour: {fileID: 646662642}
+  _trackedFields:
+  - type: 1
+    name: active
+  _trackedMethods: []
+  _ownerAuth: 1
+--- !u!114 &1447048918
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1447048911}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5cb763cfb0fbf2c44b3587223c4aad1b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: PurrNet.Runtime::PurrNet.NetworkReflection
+  _networkRules: {fileID: 0}
+  _visitiblityRules: {fileID: 0}
+  _isSetup: 0
+  _prefabId: -2147483648
+  _hasPrefabScope: 0
+  _prefabScope: 0
+  _componentIndex: -2147483648
+  _shouldBePooled: 0
+  _parent: {fileID: 0}
+  _invertedPathToNearestParent: 
+  _directChildren: []
+  _trackedBehaviour: {fileID: 792269767}
+  _trackedFields:
+  - type: 1
+    name: active
+  _trackedMethods: []
+  _ownerAuth: 1
 --- !u!1 &1492178278
 GameObject:
   m_ObjectHideFlags: 0
@@ -5855,6 +5913,12 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 8028484849970348258, guid: efbfcf2ce6f4fd140a82a9d0030882c0, type: 3}
       insertIndex: -1
       addedObject: {fileID: 1447048914}
+    - targetCorrespondingSourceObject: {fileID: 8028484849970348258, guid: efbfcf2ce6f4fd140a82a9d0030882c0, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1447048917}
+    - targetCorrespondingSourceObject: {fileID: 8028484849970348258, guid: efbfcf2ce6f4fd140a82a9d0030882c0, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1447048918}
   m_SourcePrefab: {fileID: 100100000, guid: efbfcf2ce6f4fd140a82a9d0030882c0, type: 3}
 --- !u!1001 &5984865240946442339
 PrefabInstance:
@@ -5864,13 +5928,17 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 516411107539104001, guid: 30efdf048c2ff9d47b96e656d21b3a4e, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 3451111150609949641, guid: 30efdf048c2ff9d47b96e656d21b3a4e, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 3451111150609949641, guid: 30efdf048c2ff9d47b96e656d21b3a4e, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -0
+      value: -3
       objectReference: {fileID: 0}
     - target: {fileID: 3451111150609949641, guid: 30efdf048c2ff9d47b96e656d21b3a4e, type: 3}
       propertyPath: m_LocalPosition.z
@@ -5908,6 +5976,10 @@ PrefabInstance:
       propertyPath: _trackedFields.Array.size
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 6445666523496849165, guid: 30efdf048c2ff9d47b96e656d21b3a4e, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 7864559416657611325, guid: 30efdf048c2ff9d47b96e656d21b3a4e, type: 3}
       propertyPath: m_Name
       value: CorrectPlacer
@@ -5915,7 +5987,10 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 516411107539104001, guid: 30efdf048c2ff9d47b96e656d21b3a4e, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 0}
   m_SourcePrefab: {fileID: 100100000, guid: 30efdf048c2ff9d47b96e656d21b3a4e, type: 3}
 --- !u!1001 &6381394025400310523
 PrefabInstance:

@@ -46,7 +46,7 @@ public class GameManager : NetworkBehaviour
     private SyncVar<float> _countdownTimer = new SyncVar<float>(_COUNTDOWN_TIME);
 
     // The countdown is for each player during their turn. The turn will change when the timer has elapsed.
-    [SerializeField] private const float _QUESTIONCOUNTDOWN_TIME = 15f;
+    [SerializeField] private const float _QUESTIONCOUNTDOWN_TIME = 10f;
     private SyncVar<float> _questionCountdownTimer = new SyncVar<float>(_QUESTIONCOUNTDOWN_TIME);
 
     // The countdown is for time between rounds.
@@ -70,8 +70,8 @@ public class GameManager : NetworkBehaviour
         QuestionTimerText.SetActive(false);
         RoundNumber = 0;
 
-        CorrectPlacerText.SetActive(false);
-        CorrectPlacerImage.SetActive(false);
+        CorrectPlacerText.SetActive(true);
+        CorrectPlacerImage.SetActive(true);
 
         // This is a lambda expression.
         // Whenever the _currentQuestionIndex SyncVar changes, the UpdateQuestionValues method is called to update the question values on all clients.
@@ -137,6 +137,7 @@ public class GameManager : NetworkBehaviour
         _isQuestionPicked = true;
         QuestionTimerText.SetActive(true);
 
+        ClearText();
         ResetCooldown();
         RoundNumber++;
         return;
@@ -191,9 +192,13 @@ public class GameManager : NetworkBehaviour
 
             UpdateCooldownTimer();
 
+            if (_cooldownTimer.value <= 1)
+            {
+                CorrectPlacer.transform.position = new Vector3(targetAnswerPosition, -3f, 0);
+            }
+
             if (_cooldownTimer.value <= 0 && RoundOver == true)
             {
-                CorrectPlacer.transform.position = new Vector3(1000, -1.8f, 0);
                 _PickRandomQuestion();
                 GetQuestionValues();
                 SetQuestionText();
@@ -208,6 +213,12 @@ public class GameManager : NetworkBehaviour
         }
 
     }
+    [ObserversRpc(Channel.Unreliable)]
+    public void RoundOverSetter(bool isRoundOver)
+    {
+        RoundOver = isRoundOver;
+    }
+
 
 
     [ServerRpc(Channel.Unreliable)]
@@ -280,7 +291,7 @@ public class GameManager : NetworkBehaviour
     [ServerRpc(Channel.Unreliable)]
     public void UpdateQuestionTimer()
     {
-        _questionCountdownTimer.value -= Time.deltaTime;
+        _questionCountdownTimer.value -= (Time.deltaTime);
     }
 
 
