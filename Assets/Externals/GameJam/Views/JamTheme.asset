@@ -15,11 +15,11 @@ MonoBehaviour:
   _black: {r: 0.019607844, g: 0.023529414, b: 0.023529414, a: 1}
   _white: {r: 1, g: 1, b: 1, a: 1}
   _muted: {r: 0.8805031, g: 0.8805031, b: 0.8805031, a: 1}
-  _background: {r: 0, g: 0.4431373, b: 1, a: 1}
+  _background: {r: 1, g: 0.5299818, b: 0, a: 1}
   _foreground: {r: 1, g: 1, b: 1, a: 1}
-  _surface: {r: 0.07019097, g: 0.57232696, b: 0.22344029, a: 1}
+  _surface: {r: 0.002551152, g: 0.31268075, b: 0.8113208, a: 1}
   _surfaceForeground: {r: 1, g: 1, b: 1, a: 1}
-  _accent: {r: 0.11801341, g: 0.29246104, b: 0.735849, a: 1}
+  _accent: {r: 0.9245283, g: 0.5621436, b: 0.2645661, a: 1}
   _accentForeground: {r: 1, g: 1, b: 1, a: 1}
   _success: {r: 0.17226359, g: 0.81761, b: 0.4514303, a: 1}
   _successForeground: {r: 0, g: 0, b: 0, a: 1}

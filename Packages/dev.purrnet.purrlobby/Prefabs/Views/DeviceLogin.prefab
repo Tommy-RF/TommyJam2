@@ -60,6 +60,7 @@ Canvas:
   m_OverridePixelPerfect: 0
   m_SortingBucketNormalizedSize: 0
   m_VertexColorAlwaysGammaSpace: 0
+  m_UseReflectionProbes: 0
   m_AdditionalShaderChannelsFlag: 31
   m_UpdateRectTransformForStandalone: 0
   m_SortingLayerID: 0
@@ -212,7 +213,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1276072071564278327, guid: 6491b392ffebc374e935777cfd3f45a4, type: 3}
       propertyPath: _graphic
-      value:
+      value: 
       objectReference: {fileID: 8365780389336228122}
     - target: {fileID: 1276072071564278327, guid: 6491b392ffebc374e935777cfd3f45a4, type: 3}
       propertyPath: _coloredInfos.Array.data[2].color
@@ -228,7 +229,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3693934584037749335, guid: 6491b392ffebc374e935777cfd3f45a4, type: 3}
       propertyPath: _graphic
-      value:
+      value: 
       objectReference: {fileID: 5483145410091988147}
     - target: {fileID: 4093494571155517460, guid: 6491b392ffebc374e935777cfd3f45a4, type: 3}
       propertyPath: _clickSound
@@ -283,7 +284,19 @@ PrefabInstance:
       value: <icon=account_outline> Login
       objectReference: {fileID: 0}
     - target: {fileID: 5512809213008706615, guid: 6491b392ffebc374e935777cfd3f45a4, type: 3}
+      propertyPath: m_fontAsset
+      value: 
+      objectReference: {fileID: 11400000, guid: 6800bd89c84736d4c990739c4400e973, type: 2}
+    - target: {fileID: 5512809213008706615, guid: 6491b392ffebc374e935777cfd3f45a4, type: 3}
       propertyPath: m_fontStyle
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5512809213008706615, guid: 6491b392ffebc374e935777cfd3f45a4, type: 3}
+      propertyPath: m_sharedMaterial
+      value: 
+      objectReference: {fileID: 8008658800296819765, guid: 6800bd89c84736d4c990739c4400e973, type: 2}
+    - target: {fileID: 5512809213008706615, guid: 6491b392ffebc374e935777cfd3f45a4, type: 3}
+      propertyPath: m_hasFontAssetChanged
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7459676452420432120, guid: 6491b392ffebc374e935777cfd3f45a4, type: 3}
@@ -425,17 +438,6 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 6491b392ffebc374e935777cfd3f45a4, type: 3}
---- !u!114 &4059545268122302608 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 4093494571155517460, guid: 6491b392ffebc374e935777cfd3f45a4, type: 3}
-  m_PrefabInstance: {fileID: 43177230858897540}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e9c20e29ce9c2744aa74f141b285a2b8, type: 3}
-  m_Name:
-  m_EditorClassIdentifier: PurrUI.Runtime::PurrNet.UI.ButtonElement
 --- !u!114 &5483145410091988147 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 5512809213008706615, guid: 6491b392ffebc374e935777cfd3f45a4, type: 3}
@@ -445,7 +447,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
-  m_Name:
+  m_Name: 
   m_EditorClassIdentifier: Unity.TextMeshPro::TMPro.TextMeshProUGUI
 --- !u!224 &7430795639826905212 stripped
 RectTransform:
@@ -461,7 +463,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: e9019e8485f71c44cb77ac3cf2487ff1, type: 3}
-  m_Name:
+  m_Name: 
   m_EditorClassIdentifier: PurrUI.Runtime::PurrNet.UI.RectangleGraphic
 --- !u!1001 &1327150328600516394
 PrefabInstance:
@@ -473,7 +475,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 540528009903836, guid: 986d555983edcad4d8accb0e485aa01c, type: 3}
       propertyPath: _graphic
-      value:
+      value: 
       objectReference: {fileID: 5563403276106222938}
     - target: {fileID: 2827203664063406762, guid: 986d555983edcad4d8accb0e485aa01c, type: 3}
       propertyPath: m_Pivot.x
@@ -561,7 +563,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7009438152326341795, guid: 986d555983edcad4d8accb0e485aa01c, type: 3}
       propertyPath: _graphic
-      value:
+      value: 
       objectReference: {fileID: 8304272889608428120}
     - target: {fileID: 7009438152326341795, guid: 986d555983edcad4d8accb0e485aa01c, type: 3}
       propertyPath: _coloredInfos.Array.data[0].enabled
@@ -601,7 +603,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: d2cdbdb91c4540f4aa3df099bf998c39, type: 3}
-  m_Name:
+  m_Name: 
   m_EditorClassIdentifier: PurrUI.Runtime::PurrNet.UI.GraphicOpacity
   _graphic: {fileID: 8304272889608428120}
   _opacity: 0.92941177
@@ -620,7 +622,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
-  m_Name:
+  m_Name: 
   m_EditorClassIdentifier: Unity.TextMeshPro::TMPro.TextMeshProUGUI
 --- !u!114 &6501075767274370308 stripped
 MonoBehaviour:
@@ -642,7 +644,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: e9019e8485f71c44cb77ac3cf2487ff1, type: 3}
-  m_Name:
+  m_Name: 
   m_EditorClassIdentifier: PurrUI.Runtime::PurrNet.UI.RectangleGraphic
 --- !u!1001 &2645992255045855020
 PrefabInstance:
@@ -654,7 +656,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 375555912367545930, guid: cde3956384d4b694a83f0fc7898d2ffd, type: 3}
       propertyPath: _graphic
-      value:
+      value: 
       objectReference: {fileID: 6794910222344107782}
     - target: {fileID: 375555912367545930, guid: cde3956384d4b694a83f0fc7898d2ffd, type: 3}
       propertyPath: _color.color
@@ -744,6 +746,22 @@ PrefabInstance:
       propertyPath: m_text
       value: Create a guest account
       objectReference: {fileID: 0}
+    - target: {fileID: 8859756083255496746, guid: cde3956384d4b694a83f0fc7898d2ffd, type: 3}
+      propertyPath: m_fontAsset
+      value: 
+      objectReference: {fileID: 11400000, guid: 6800bd89c84736d4c990739c4400e973, type: 2}
+    - target: {fileID: 8859756083255496746, guid: cde3956384d4b694a83f0fc7898d2ffd, type: 3}
+      propertyPath: m_fontStyle
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8859756083255496746, guid: cde3956384d4b694a83f0fc7898d2ffd, type: 3}
+      propertyPath: m_sharedMaterial
+      value: 
+      objectReference: {fileID: 8008658800296819765, guid: 6800bd89c84736d4c990739c4400e973, type: 2}
+    - target: {fileID: 8859756083255496746, guid: cde3956384d4b694a83f0fc7898d2ffd, type: 3}
+      propertyPath: m_hasFontAssetChanged
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 8967047083258821514, guid: cde3956384d4b694a83f0fc7898d2ffd, type: 3}
       propertyPath: m_Name
       value: Label
@@ -762,7 +780,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
-  m_Name:
+  m_Name: 
   m_EditorClassIdentifier: Unity.TextMeshPro::TMPro.TextMeshProUGUI
 --- !u!224 &7011040693667118324 stripped
 RectTransform:
@@ -801,29 +819,37 @@ PrefabInstance:
       propertyPath: m_AnchoredPosition.y
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 417752954530642762, guid: 39bbb9db6b84f0f43979a3d35dd354c2, type: 3}
+      propertyPath: m_fontAsset
+      value: 
+      objectReference: {fileID: 11400000, guid: 6800bd89c84736d4c990739c4400e973, type: 2}
+    - target: {fileID: 417752954530642762, guid: 39bbb9db6b84f0f43979a3d35dd354c2, type: 3}
+      propertyPath: m_sharedMaterial
+      value: 
+      objectReference: {fileID: 8008658800296819765, guid: 6800bd89c84736d4c990739c4400e973, type: 2}
     - target: {fileID: 722462520868446801, guid: 39bbb9db6b84f0f43979a3d35dd354c2, type: 3}
       propertyPath: m_IsActive
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1504030189360534215, guid: 39bbb9db6b84f0f43979a3d35dd354c2, type: 3}
       propertyPath: _label
-      value:
+      value: 
       objectReference: {fileID: 8286721340774153117}
     - target: {fileID: 1504030189360534215, guid: 39bbb9db6b84f0f43979a3d35dd354c2, type: 3}
       propertyPath: _graphic
-      value:
+      value: 
       objectReference: {fileID: 7872948259206318865}
     - target: {fileID: 1504030189360534215, guid: 39bbb9db6b84f0f43979a3d35dd354c2, type: 3}
       propertyPath: _subLabel
-      value:
+      value: 
       objectReference: {fileID: 4161522220594193705}
     - target: {fileID: 1504030189360534215, guid: 39bbb9db6b84f0f43979a3d35dd354c2, type: 3}
       propertyPath: _inputField
-      value:
+      value: 
       objectReference: {fileID: 6041622171317757104}
     - target: {fileID: 1504030189360534215, guid: 39bbb9db6b84f0f43979a3d35dd354c2, type: 3}
       propertyPath: _labelFormat
-      value:
+      value: 
       objectReference: {fileID: 0}
     - target: {fileID: 1563139190185491333, guid: 39bbb9db6b84f0f43979a3d35dd354c2, type: 3}
       propertyPath: _graphicColor.b
@@ -919,7 +945,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3582241470830329486, guid: 39bbb9db6b84f0f43979a3d35dd354c2, type: 3}
       propertyPath: _graphic
-      value:
+      value: 
       objectReference: {fileID: 7884740843195533830}
     - target: {fileID: 3711988325596971523, guid: 39bbb9db6b84f0f43979a3d35dd354c2, type: 3}
       propertyPath: m_AnchorMax.y
@@ -947,15 +973,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3753126668014760173, guid: 39bbb9db6b84f0f43979a3d35dd354c2, type: 3}
       propertyPath: _input
-      value:
+      value: 
       objectReference: {fileID: 6041622171317757104}
     - target: {fileID: 3753126668014760173, guid: 39bbb9db6b84f0f43979a3d35dd354c2, type: 3}
       propertyPath: _graphic
-      value:
+      value: 
       objectReference: {fileID: 2373985878590052189}
     - target: {fileID: 3753126668014760173, guid: 39bbb9db6b84f0f43979a3d35dd354c2, type: 3}
       propertyPath: _outline
-      value:
+      value: 
       objectReference: {fileID: 7872948259206318865}
     - target: {fileID: 3753126668014760173, guid: 39bbb9db6b84f0f43979a3d35dd354c2, type: 3}
       propertyPath: _selectionOpacity
@@ -975,19 +1001,43 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4143662778774591781, guid: 39bbb9db6b84f0f43979a3d35dd354c2, type: 3}
       propertyPath: _graphic
-      value:
+      value: 
       objectReference: {fileID: 8286721340774153117}
     - target: {fileID: 5062939318979778373, guid: 39bbb9db6b84f0f43979a3d35dd354c2, type: 3}
       propertyPath: m_text
       value: Display Name
       objectReference: {fileID: 0}
+    - target: {fileID: 5062939318979778373, guid: 39bbb9db6b84f0f43979a3d35dd354c2, type: 3}
+      propertyPath: m_fontAsset
+      value: 
+      objectReference: {fileID: 11400000, guid: a671bb56488241f469d34d57e3e60b89, type: 2}
+    - target: {fileID: 5062939318979778373, guid: 39bbb9db6b84f0f43979a3d35dd354c2, type: 3}
+      propertyPath: m_sharedMaterial
+      value: 
+      objectReference: {fileID: -8249653410006168896, guid: a671bb56488241f469d34d57e3e60b89, type: 2}
+    - target: {fileID: 5062939318979778373, guid: 39bbb9db6b84f0f43979a3d35dd354c2, type: 3}
+      propertyPath: m_hasFontAssetChanged
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6354384866384488158, guid: 39bbb9db6b84f0f43979a3d35dd354c2, type: 3}
+      propertyPath: m_fontAsset
+      value: 
+      objectReference: {fileID: 11400000, guid: 6800bd89c84736d4c990739c4400e973, type: 2}
+    - target: {fileID: 6354384866384488158, guid: 39bbb9db6b84f0f43979a3d35dd354c2, type: 3}
+      propertyPath: m_sharedMaterial
+      value: 
+      objectReference: {fileID: 8008658800296819765, guid: 6800bd89c84736d4c990739c4400e973, type: 2}
     - target: {fileID: 7199729687095583578, guid: 39bbb9db6b84f0f43979a3d35dd354c2, type: 3}
       propertyPath: m_Name
       value: InputField-Labeled
       objectReference: {fileID: 0}
+    - target: {fileID: 7393593378494793832, guid: 39bbb9db6b84f0f43979a3d35dd354c2, type: 3}
+      propertyPath: m_GlobalFontAsset
+      value: 
+      objectReference: {fileID: 11400000, guid: 6800bd89c84736d4c990739c4400e973, type: 2}
     - target: {fileID: 7567592533184377149, guid: 39bbb9db6b84f0f43979a3d35dd354c2, type: 3}
       propertyPath: _graphic
-      value:
+      value: 
       objectReference: {fileID: 3499117976441001874}
     - target: {fileID: 8108281211274444237, guid: 39bbb9db6b84f0f43979a3d35dd354c2, type: 3}
       propertyPath: m_AnchoredPosition.y
@@ -995,7 +1045,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8392186492280920803, guid: 39bbb9db6b84f0f43979a3d35dd354c2, type: 3}
       propertyPath: _graphic
-      value:
+      value: 
       objectReference: {fileID: 4161522220594193705}
     - target: {fileID: 8737910138214440119, guid: 39bbb9db6b84f0f43979a3d35dd354c2, type: 3}
       propertyPath: m_AnchorMax.y
@@ -1023,7 +1073,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 9178226943952564421, guid: 39bbb9db6b84f0f43979a3d35dd354c2, type: 3}
       propertyPath: _graphic
-      value:
+      value: 
       objectReference: {fileID: 2373985878590052189}
     - target: {fileID: 9178226943952564421, guid: 39bbb9db6b84f0f43979a3d35dd354c2, type: 3}
       propertyPath: _coloredInfos.Array.data[0].enabled
@@ -1062,7 +1112,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: e9019e8485f71c44cb77ac3cf2487ff1, type: 3}
-  m_Name:
+  m_Name: 
   m_EditorClassIdentifier: PurrUI.Runtime::PurrNet.UI.RectangleGraphic
 --- !u!1 &2694705142371458208 stripped
 GameObject:
@@ -1079,7 +1129,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: d83035f59de044fc97ddadad4a295e61, type: 3}
-  m_Name:
+  m_Name: 
   m_EditorClassIdentifier: PurrUI.Runtime::PurrNet.UI.ThemedGraphicTone
   _graphic: {fileID: 2373985878590052189}
   _slot: 0
@@ -1104,7 +1154,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
-  m_Name:
+  m_Name: 
   m_EditorClassIdentifier: Unity.TextMeshPro::TMPro.TextMeshProUGUI
 --- !u!114 &4161522220594193705 stripped
 MonoBehaviour:
@@ -1115,7 +1165,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
-  m_Name:
+  m_Name: 
   m_EditorClassIdentifier: Unity.TextMeshPro::TMPro.TextMeshProUGUI
 --- !u!114 &6041622171317757104 stripped
 MonoBehaviour:
@@ -1137,7 +1187,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: bedb6fc38647bd946b0aba6e5c13d18a, type: 3}
-  m_Name:
+  m_Name: 
   m_EditorClassIdentifier: PurrUI.Runtime::PurrNet.UI.SelectedOutlineInputField
 --- !u!114 &7884740843195533830 stripped
 MonoBehaviour:
@@ -1148,7 +1198,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
-  m_Name:
+  m_Name: 
   m_EditorClassIdentifier: Unity.TextMeshPro::TMPro.TextMeshProUGUI
 --- !u!114 &8286721340774153117 stripped
 MonoBehaviour:
@@ -1159,7 +1209,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
-  m_Name:
+  m_Name: 
   m_EditorClassIdentifier: Unity.TextMeshPro::TMPro.TextMeshProUGUI
 --- !u!1001 &4466245977273175686
 PrefabInstance:
@@ -1321,7 +1371,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1030576689896368998, guid: e6b4a48251b05744b8114a5b7d909fc8, type: 3}
       propertyPath: _graphic
-      value:
+      value: 
       objectReference: {fileID: 2028716243362378126}
     - target: {fileID: 1030576689896368998, guid: e6b4a48251b05744b8114a5b7d909fc8, type: 3}
       propertyPath: _color.color
@@ -1369,11 +1419,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2998818157037152490, guid: e6b4a48251b05744b8114a5b7d909fc8, type: 3}
       propertyPath: _toggle
-      value:
+      value: 
       objectReference: {fileID: 2730445571540881059}
     - target: {fileID: 2998818157037152490, guid: e6b4a48251b05744b8114a5b7d909fc8, type: 3}
       propertyPath: _background
-      value:
+      value: 
       objectReference: {fileID: 2295035053118586671}
     - target: {fileID: 2998818157037152490, guid: e6b4a48251b05744b8114a5b7d909fc8, type: 3}
       propertyPath: _onTone.blend
@@ -1389,19 +1439,31 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4913896743773401763, guid: e6b4a48251b05744b8114a5b7d909fc8, type: 3}
       propertyPath: m_Color.b
-      value: 1
+      value: 0.15686275
       objectReference: {fileID: 0}
     - target: {fileID: 4913896743773401763, guid: e6b4a48251b05744b8114a5b7d909fc8, type: 3}
       propertyPath: m_Color.g
-      value: 1
+      value: 0.15294118
       objectReference: {fileID: 0}
     - target: {fileID: 4913896743773401763, guid: e6b4a48251b05744b8114a5b7d909fc8, type: 3}
       propertyPath: m_Color.r
-      value: 1
+      value: 0.15294118
       objectReference: {fileID: 0}
     - target: {fileID: 5174428824100797442, guid: e6b4a48251b05744b8114a5b7d909fc8, type: 3}
       propertyPath: m_text
       value: Remember Me
+      objectReference: {fileID: 0}
+    - target: {fileID: 5174428824100797442, guid: e6b4a48251b05744b8114a5b7d909fc8, type: 3}
+      propertyPath: m_fontAsset
+      value: 
+      objectReference: {fileID: 11400000, guid: 6800bd89c84736d4c990739c4400e973, type: 2}
+    - target: {fileID: 5174428824100797442, guid: e6b4a48251b05744b8114a5b7d909fc8, type: 3}
+      propertyPath: m_sharedMaterial
+      value: 
+      objectReference: {fileID: 8008658800296819765, guid: 6800bd89c84736d4c990739c4400e973, type: 2}
+    - target: {fileID: 5174428824100797442, guid: e6b4a48251b05744b8114a5b7d909fc8, type: 3}
+      propertyPath: m_hasFontAssetChanged
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6001407450152094018, guid: e6b4a48251b05744b8114a5b7d909fc8, type: 3}
       propertyPath: m_Name
@@ -1411,9 +1473,21 @@ PrefabInstance:
       propertyPath: m_text
       value: Automatically login next time
       objectReference: {fileID: 0}
+    - target: {fileID: 6491732472743320937, guid: e6b4a48251b05744b8114a5b7d909fc8, type: 3}
+      propertyPath: m_fontAsset
+      value: 
+      objectReference: {fileID: 11400000, guid: 6800bd89c84736d4c990739c4400e973, type: 2}
+    - target: {fileID: 6491732472743320937, guid: e6b4a48251b05744b8114a5b7d909fc8, type: 3}
+      propertyPath: m_sharedMaterial
+      value: 
+      objectReference: {fileID: 8008658800296819765, guid: 6800bd89c84736d4c990739c4400e973, type: 2}
+    - target: {fileID: 6491732472743320937, guid: e6b4a48251b05744b8114a5b7d909fc8, type: 3}
+      propertyPath: m_hasFontAssetChanged
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 6524159645373616548, guid: e6b4a48251b05744b8114a5b7d909fc8, type: 3}
       propertyPath: _graphic
-      value:
+      value: 
       objectReference: {fileID: 5536956940559305622}
     - target: {fileID: 6524159645373616548, guid: e6b4a48251b05744b8114a5b7d909fc8, type: 3}
       propertyPath: _coloredInfos.Array.data[3].enabled
@@ -1425,7 +1499,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6774147586487030614, guid: e6b4a48251b05744b8114a5b7d909fc8, type: 3}
       propertyPath: _graphic
-      value:
+      value: 
       objectReference: {fileID: 2295035053118586671}
     - target: {fileID: 6774147586487030614, guid: e6b4a48251b05744b8114a5b7d909fc8, type: 3}
       propertyPath: _coloredInfos.Array.data[3].enabled
@@ -1437,7 +1511,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7783669703184627300, guid: e6b4a48251b05744b8114a5b7d909fc8, type: 3}
       propertyPath: _graphic
-      value:
+      value: 
       objectReference: {fileID: 143962901907493093}
     - target: {fileID: 8994020968389987630, guid: e6b4a48251b05744b8114a5b7d909fc8, type: 3}
       propertyPath: m_AnchoredPosition.x
@@ -1569,7 +1643,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
-  m_Name:
+  m_Name: 
   m_EditorClassIdentifier: Unity.TextMeshPro::TMPro.TextMeshProUGUI
 --- !u!114 &2028716243362378126 stripped
 MonoBehaviour:
@@ -1580,7 +1654,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
-  m_Name:
+  m_Name: 
   m_EditorClassIdentifier: Unity.TextMeshPro::TMPro.TextMeshProUGUI
 --- !u!114 &2295035053118586671 stripped
 MonoBehaviour:
@@ -1591,7 +1665,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: e9019e8485f71c44cb77ac3cf2487ff1, type: 3}
-  m_Name:
+  m_Name: 
   m_EditorClassIdentifier: PurrUI.Runtime::PurrNet.UI.RectangleGraphic
 --- !u!114 &2730445571540881059 stripped
 MonoBehaviour:
@@ -1618,7 +1692,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: e9019e8485f71c44cb77ac3cf2487ff1, type: 3}
-  m_Name:
+  m_Name: 
   m_EditorClassIdentifier: PurrUI.Runtime::PurrNet.UI.RectangleGraphic
 --- !u!1001 &6912000864949588975
 PrefabInstance:
@@ -1742,7 +1816,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6215041489727248044, guid: 39a7bc2046d14bf459fbce2467d932e9, type: 3}
       propertyPath: _graphic
-      value:
+      value: 
       objectReference: {fileID: 3547491687010062161}
     - target: {fileID: 6215041489727248044, guid: 39a7bc2046d14bf459fbce2467d932e9, type: 3}
       propertyPath: _coloredInfos.Array.data[0].color
@@ -1762,7 +1836,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8889714141064506590, guid: 39a7bc2046d14bf459fbce2467d932e9, type: 3}
       propertyPath: _graphic
-      value:
+      value: 
       objectReference: {fileID: 3547491687010062161}
     m_RemovedComponents:
     - {fileID: 3791287485175536699, guid: 39a7bc2046d14bf459fbce2467d932e9, type: 3}
@@ -1785,7 +1859,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: e9019e8485f71c44cb77ac3cf2487ff1, type: 3}
-  m_Name:
+  m_Name: 
   m_EditorClassIdentifier: PurrUI.Runtime::PurrNet.UI.RectangleGraphic
 --- !u!1001 &7164595380823174513
 PrefabInstance:
@@ -1797,7 +1871,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 22205903845967464, guid: 264df020990aaa647b14ee2c7cbb2ae2, type: 3}
       propertyPath: _graphic
-      value:
+      value: 
       objectReference: {fileID: 1103799962366489331}
     - target: {fileID: 22205903845967464, guid: 264df020990aaa647b14ee2c7cbb2ae2, type: 3}
       propertyPath: _coloredInfos.Array.data[3].enabled
@@ -1829,11 +1903,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2507585940585507546, guid: 264df020990aaa647b14ee2c7cbb2ae2, type: 3}
       propertyPath: _graphic
-      value:
+      value: 
       objectReference: {fileID: 743288613042828120}
     - target: {fileID: 3034294447397375326, guid: 264df020990aaa647b14ee2c7cbb2ae2, type: 3}
       propertyPath: _graphic
-      value:
+      value: 
       objectReference: {fileID: 5476657606276221078}
     - target: {fileID: 3157188190545418170, guid: 264df020990aaa647b14ee2c7cbb2ae2, type: 3}
       propertyPath: m_IsActive
@@ -1845,7 +1919,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4150163921984278224, guid: 264df020990aaa647b14ee2c7cbb2ae2, type: 3}
       propertyPath: _graphic
-      value:
+      value: 
       objectReference: {fileID: 6808484357029157103}
     - target: {fileID: 4150163921984278224, guid: 264df020990aaa647b14ee2c7cbb2ae2, type: 3}
       propertyPath: _color.color
@@ -1853,7 +1927,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4171287149343668383, guid: 264df020990aaa647b14ee2c7cbb2ae2, type: 3}
       propertyPath: _graphic
-      value:
+      value: 
       objectReference: {fileID: 6808484357029157103}
     - target: {fileID: 4185741921788495072, guid: 264df020990aaa647b14ee2c7cbb2ae2, type: 3}
       propertyPath: m_Name
@@ -1865,11 +1939,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5022530086253368204, guid: 264df020990aaa647b14ee2c7cbb2ae2, type: 3}
       propertyPath: _graphic
-      value:
+      value: 
       objectReference: {fileID: 1654365133535557975}
     - target: {fileID: 5437370775456665745, guid: 264df020990aaa647b14ee2c7cbb2ae2, type: 3}
       propertyPath: _graphic
-      value:
+      value: 
       objectReference: {fileID: 7344761173620193762}
     - target: {fileID: 5437370775456665745, guid: 264df020990aaa647b14ee2c7cbb2ae2, type: 3}
       propertyPath: _coloredInfos.Array.data[3].enabled
@@ -1881,7 +1955,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5687871578822818645, guid: 264df020990aaa647b14ee2c7cbb2ae2, type: 3}
       propertyPath: _graphic
-      value:
+      value: 
       objectReference: {fileID: 1403259190336413065}
     - target: {fileID: 5687871578822818645, guid: 264df020990aaa647b14ee2c7cbb2ae2, type: 3}
       propertyPath: _coloredInfos.Array.data[3].enabled
@@ -1973,19 +2047,19 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5951491661890302586, guid: 264df020990aaa647b14ee2c7cbb2ae2, type: 3}
       propertyPath: _graphic
-      value:
+      value: 
       objectReference: {fileID: 5636290684577042795}
     - target: {fileID: 6670648186386550479, guid: 264df020990aaa647b14ee2c7cbb2ae2, type: 3}
       propertyPath: _graphic
-      value:
+      value: 
       objectReference: {fileID: 1522156491685469423}
     - target: {fileID: 6723826741041264219, guid: 264df020990aaa647b14ee2c7cbb2ae2, type: 3}
       propertyPath: _graphic
-      value:
+      value: 
       objectReference: {fileID: 5476657606276221078}
     - target: {fileID: 7156485343197231020, guid: 264df020990aaa647b14ee2c7cbb2ae2, type: 3}
       propertyPath: _graphic
-      value:
+      value: 
       objectReference: {fileID: 1103799962366489331}
     - target: {fileID: 7386006998404919003, guid: 264df020990aaa647b14ee2c7cbb2ae2, type: 3}
       propertyPath: m_PreferredHeight
@@ -2013,7 +2087,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7665067051895275440, guid: 264df020990aaa647b14ee2c7cbb2ae2, type: 3}
       propertyPath: _graphic
-      value:
+      value: 
       objectReference: {fileID: 1522156491685469423}
     - target: {fileID: 7665067051895275440, guid: 264df020990aaa647b14ee2c7cbb2ae2, type: 3}
       propertyPath: _coloredInfos.Array.data[0].color
@@ -2029,11 +2103,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8278823448223452206, guid: 264df020990aaa647b14ee2c7cbb2ae2, type: 3}
       propertyPath: _button
-      value:
+      value: 
       objectReference: {fileID: 3178442340013878709}
     - target: {fileID: 8278823448223452206, guid: 264df020990aaa647b14ee2c7cbb2ae2, type: 3}
       propertyPath: _graphic
-      value:
+      value: 
       objectReference: {fileID: 1403259190336413065}
     - target: {fileID: 8977300806387756823, guid: 264df020990aaa647b14ee2c7cbb2ae2, type: 3}
       propertyPath: m_AnchorMax.x
@@ -2053,7 +2127,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 9183684759662979713, guid: 264df020990aaa647b14ee2c7cbb2ae2, type: 3}
       propertyPath: m_Size
-      value: 1
+      value: 0.9950946
       objectReference: {fileID: 0}
     - target: {fileID: 9183684759662979713, guid: 264df020990aaa647b14ee2c7cbb2ae2, type: 3}
       propertyPath: m_Value
@@ -2065,7 +2139,7 @@ PrefabInstance:
       objectReference: {fileID: 1103799962366489331}
     - target: {fileID: 9188611237920211996, guid: 264df020990aaa647b14ee2c7cbb2ae2, type: 3}
       propertyPath: m_Value
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: 4411977205756378391, guid: 264df020990aaa647b14ee2c7cbb2ae2, type: 3}
@@ -2118,7 +2192,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
-  m_Name:
+  m_Name: 
   m_EditorClassIdentifier: UnityEngine.UI::UnityEngine.UI.Image
 --- !u!114 &1103799962366489331 stripped
 MonoBehaviour:
@@ -2129,7 +2203,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: e9019e8485f71c44cb77ac3cf2487ff1, type: 3}
-  m_Name:
+  m_Name: 
   m_EditorClassIdentifier: PurrUI.Runtime::PurrNet.UI.RectangleGraphic
 --- !u!114 &1403259190336413065 stripped
 MonoBehaviour:
@@ -2151,7 +2225,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: e9019e8485f71c44cb77ac3cf2487ff1, type: 3}
-  m_Name:
+  m_Name: 
   m_EditorClassIdentifier: PurrUI.Runtime::PurrNet.UI.RectangleGraphic
 --- !u!114 &1654365133535557975 stripped
 MonoBehaviour:
@@ -2162,7 +2236,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
-  m_Name:
+  m_Name: 
   m_EditorClassIdentifier: Unity.TextMeshPro::TMPro.TextMeshProUGUI
 --- !u!224 &3178051590126960437 stripped
 RectTransform:
@@ -2178,7 +2252,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: e9c20e29ce9c2744aa74f141b285a2b8, type: 3}
-  m_Name:
+  m_Name: 
   m_EditorClassIdentifier: PurrUI.Runtime::PurrNet.UI.ButtonElement
 --- !u!114 &5476657606276221078 stripped
 MonoBehaviour:
@@ -2189,7 +2263,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
-  m_Name:
+  m_Name: 
   m_EditorClassIdentifier: UnityEngine.UI::UnityEngine.UI.Image
 --- !u!114 &5636290684577042795 stripped
 MonoBehaviour:
@@ -2200,7 +2274,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
-  m_Name:
+  m_Name: 
   m_EditorClassIdentifier: Unity.TextMeshPro::TMPro.TextMeshProUGUI
 --- !u!114 &6808484357029157103 stripped
 MonoBehaviour:
@@ -2211,7 +2285,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
-  m_Name:
+  m_Name: 
   m_EditorClassIdentifier: UnityEngine.UI::UnityEngine.UI.Image
 --- !u!114 &7344761173620193762 stripped
 MonoBehaviour:
@@ -2222,7 +2296,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: e9019e8485f71c44cb77ac3cf2487ff1, type: 3}
-  m_Name:
+  m_Name: 
   m_EditorClassIdentifier: PurrUI.Runtime::PurrNet.UI.RectangleGraphic
 --- !u!1001 &7413523708896526154
 PrefabInstance:
@@ -2242,7 +2316,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4064444047529205251, guid: 0eeb8b4303f29854cbf12a1cc87cb9c3, type: 3}
       propertyPath: _graphic
-      value:
+      value: 
       objectReference: {fileID: 7091388520781053818}
     - target: {fileID: 4064444047529205251, guid: 0eeb8b4303f29854cbf12a1cc87cb9c3, type: 3}
       propertyPath: _color.enabled
@@ -2376,7 +2450,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: d2cdbdb91c4540f4aa3df099bf998c39, type: 3}
-  m_Name:
+  m_Name: 
   m_EditorClassIdentifier: PurrUI.Runtime::PurrNet.UI.GraphicOpacity
   _graphic: {fileID: 7091388520781053818}
   _opacity: 0.69803923
@@ -2390,7 +2464,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
-  m_Name:
+  m_Name: 
   m_EditorClassIdentifier: UnityEngine.UI::UnityEngine.UI.Image
 --- !u!1001 &9137569113652365006
 PrefabInstance:
@@ -2402,7 +2476,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 2447824264300022848, guid: bb60e14f96f41c545bae9571ee0e6749, type: 3}
       propertyPath: _graphic
-      value:
+      value: 
       objectReference: {fileID: 1652018201572039514}
     - target: {fileID: 2447824264300022848, guid: bb60e14f96f41c545bae9571ee0e6749, type: 3}
       propertyPath: _coloredInfos.Array.data[3].enabled
@@ -2414,7 +2488,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5511714860548609638, guid: bb60e14f96f41c545bae9571ee0e6749, type: 3}
       propertyPath: _graphic
-      value:
+      value: 
       objectReference: {fileID: 1652018201572039514}
     - target: {fileID: 6650409184137491722, guid: bb60e14f96f41c545bae9571ee0e6749, type: 3}
       propertyPath: m_Pivot.x
@@ -2498,11 +2572,23 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6700995912872930995, guid: bb60e14f96f41c545bae9571ee0e6749, type: 3}
       propertyPath: _graphic
-      value:
+      value: 
       objectReference: {fileID: 515371433650542371}
     - target: {fileID: 8784795697934979565, guid: bb60e14f96f41c545bae9571ee0e6749, type: 3}
       propertyPath: m_fontSize
       value: 20
+      objectReference: {fileID: 0}
+    - target: {fileID: 8784795697934979565, guid: bb60e14f96f41c545bae9571ee0e6749, type: 3}
+      propertyPath: m_fontAsset
+      value: 
+      objectReference: {fileID: 11400000, guid: 6800bd89c84736d4c990739c4400e973, type: 2}
+    - target: {fileID: 8784795697934979565, guid: bb60e14f96f41c545bae9571ee0e6749, type: 3}
+      propertyPath: m_sharedMaterial
+      value: 
+      objectReference: {fileID: 8008658800296819765, guid: 6800bd89c84736d4c990739c4400e973, type: 2}
+    - target: {fileID: 8784795697934979565, guid: bb60e14f96f41c545bae9571ee0e6749, type: 3}
+      propertyPath: m_hasFontAssetChanged
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8908563750961494922, guid: bb60e14f96f41c545bae9571ee0e6749, type: 3}
       propertyPath: m_Name
@@ -2524,7 +2610,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
-  m_Name:
+  m_Name: 
   m_EditorClassIdentifier: Unity.TextMeshPro::TMPro.TextMeshProUGUI
 --- !u!114 &1652018201572039514 stripped
 MonoBehaviour:
@@ -2535,7 +2621,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: e9019e8485f71c44cb77ac3cf2487ff1, type: 3}
-  m_Name:
+  m_Name: 
   m_EditorClassIdentifier: PurrUI.Runtime::PurrNet.UI.RectangleGraphic
 --- !u!224 &2487628946587661252 stripped
 RectTransform:

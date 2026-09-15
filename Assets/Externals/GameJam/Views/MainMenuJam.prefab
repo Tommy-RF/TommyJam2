@@ -28,8 +28,8 @@ RectTransform:
   m_GameObject: {fileID: 557548498941745347}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
+  m_LocalScale: {x: 3.14, y: 3.14, z: 3.14}
+  m_ConstrainProportionsScale: 1
   m_Children: []
   m_Father: {fileID: 6936209515626006180}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -60,13 +60,13 @@ MonoBehaviour:
   m_EditorClassIdentifier: UnityEngine.UI::UnityEngine.UI.Image
   m_Material: {fileID: 0}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
-  m_RaycastTarget: 1
+  m_RaycastTarget: 0
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: eb05edc6c2381c942a18b0a2cc08a43c, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 431c6e3b3d040af4cb89a1773b559e0d, type: 3}
   m_Type: 0
   m_PreserveAspect: 1
   m_FillCenter: 1
@@ -244,12 +244,13 @@ RectTransform:
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
-  m_Children: []
+  m_Children:
+  - {fileID: 5073149858469031750}
   m_Father: {fileID: 2177484222411551717}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: 0}
+  m_AnchoredPosition: {x: 0, y: 145}
   m_SizeDelta: {x: 300, y: 300}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &1795903219522119801
@@ -746,7 +747,7 @@ RectTransform:
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 364.7, y: 368.7}
+  m_SizeDelta: {x: 385.4, y: 368.7}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &6848694348086503349
 CanvasRenderer:
@@ -776,10 +777,10 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: "How to play:\n\n\u2022 Answer trivia questions by placing yourself on a timeline from lowest to highest, left to right!\n\n\u2022 Click, hold and release to launch yourself towards where your mouse is pointing to land in the spot you think is correct.\n\n\u2022 The player closest to the correct answer wins a point!\n\n\u2022 Beware, other players can bounce into you to knock you off your target before time ends!\n\n"
+  m_text: "How to play:\n\n\u2022 Answer trivia questions by placing yourself on a timeline from lowest to highest, left to right!\n\n\u2022 Click, hold and release to launch yourself towards where your mouse is pointing to land in the spot you think is correct.\n\n\u2022 The player closest to the correct answer wins a point!\n\n\u2022 Beware, other players can bounce into you to knock you off your target before time ends!\n"
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: c7839873acb43fd45a5444c8c1791431, type: 2}
-  m_sharedMaterial: {fileID: 2481296226650522356, guid: c7839873acb43fd45a5444c8c1791431, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: 6800bd89c84736d4c990739c4400e973, type: 2}
+  m_sharedMaterial: {fileID: 8008658800296819765, guid: 6800bd89c84736d4c990739c4400e973, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -809,7 +810,7 @@ MonoBehaviour:
   m_enableAutoSizing: 0
   m_fontSizeMin: 18
   m_fontSizeMax: 72
-  m_fontStyle: 1
+  m_fontStyle: 0
   m_HorizontalAlignment: 2
   m_VerticalAlignment: 512
   m_textAlignment: 65535
@@ -817,6 +818,143 @@ MonoBehaviour:
   m_characterHorizontalScale: 1
   m_wordSpacing: 0
   m_lineSpacing: 1
+  m_lineSpacingMax: 0
+  m_paragraphSpacing: 0
+  m_charWidthMaxAdj: 0
+  m_TextWrappingMode: 1
+  m_wordWrappingRatios: 0.4
+  m_overflowMode: 0
+  m_linkedTextComponent: {fileID: 0}
+  parentLinkedComponent: {fileID: 0}
+  m_enableKerning: 0
+  m_ActiveFontFeatures: 6e72656bu
+  m_enableExtraPadding: 0
+  checkPaddingRequired: 0
+  m_isRichText: 1
+  m_EmojiFallbackSupport: 1
+  m_parseCtrlCharacters: 1
+  m_isOrthographic: 1
+  m_isCullingEnabled: 0
+  m_horizontalMapping: 0
+  m_verticalMapping: 0
+  m_uvLineOffset: 0
+  m_geometrySortingOrder: 0
+  m_IsTextObjectScaleStatic: 0
+  m_VertexBufferAutoSizeReduction: 0
+  m_useMaxVisibleDescender: 1
+  m_pageToDisplay: 1
+  m_margin: {x: 0, y: 0, z: 0, w: 0}
+  m_isUsingLegacyAnimationComponent: 0
+  m_isVolumetricText: 0
+  m_hasFontAssetChanged: 0
+  m_baseMaterial: {fileID: 0}
+  m_maskOffset: {x: 0, y: 0, z: 0, w: 0}
+--- !u!1 &4294519432595049225
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 5073149858469031750}
+  - component: {fileID: 1486422399430368146}
+  - component: {fileID: 9058649103625452850}
+  m_Layer: 5
+  m_Name: Text (TMP)
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &5073149858469031750
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4294519432595049225}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 2172061482204274643}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchoredPosition: {x: -10, y: -172}
+  m_SizeDelta: {x: 416.8, y: 50}
+  m_Pivot: {x: 0.5, y: 0.5}
+--- !u!222 &1486422399430368146
+CanvasRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4294519432595049225}
+  m_CullTransparentMesh: 1
+--- !u!114 &9058649103625452850
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4294519432595049225}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Unity.TextMeshPro::TMPro.TextMeshProUGUI
+  m_Material: {fileID: 0}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_RaycastTarget: 1
+  m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
+  m_Maskable: 1
+  m_OnCullStateChanged:
+    m_PersistentCalls:
+      m_Calls: []
+  m_text: "Daydream Gallery is a 3-person indie game studio making \"Extremely Cool And Unique Experiences\"\u2122.\n\nMusic by Deadbolt.\n\nContinuum font by Br\xF8derbund Software.\n\nBackground Assets sourced from frutigeraeroarchive.org.\r\n\nMade in 4 days for Jackbox Multiplayer Jam! [Powered by PurrNet]. \n\nWe're new to netcode! "
+  m_isRightToLeft: 0
+  m_fontAsset: {fileID: 11400000, guid: 6800bd89c84736d4c990739c4400e973, type: 2}
+  m_sharedMaterial: {fileID: 8008658800296819765, guid: 6800bd89c84736d4c990739c4400e973, type: 2}
+  m_fontSharedMaterials: []
+  m_fontMaterial: {fileID: 0}
+  m_fontMaterials: []
+  m_fontColor32:
+    serializedVersion: 2
+    rgba: 4294967295
+  m_fontColor: {r: 1, g: 1, b: 1, a: 1}
+  m_enableVertexGradient: 0
+  m_colorMode: 3
+  m_fontColorGradient:
+    topLeft: {r: 1, g: 1, b: 1, a: 1}
+    topRight: {r: 1, g: 1, b: 1, a: 1}
+    bottomLeft: {r: 1, g: 1, b: 1, a: 1}
+    bottomRight: {r: 1, g: 1, b: 1, a: 1}
+  m_fontColorGradientPreset: {fileID: 0}
+  m_spriteAsset: {fileID: 0}
+  m_tintAllSprites: 0
+  m_StyleSheet: {fileID: 0}
+  m_TextStyleHashCode: -1183493901
+  m_overrideHtmlColors: 0
+  m_faceColor:
+    serializedVersion: 2
+    rgba: 4294967295
+  m_fontSize: 18
+  m_fontSizeBase: 18
+  m_fontWeight: 400
+  m_enableAutoSizing: 0
+  m_fontSizeMin: 18
+  m_fontSizeMax: 72
+  m_fontStyle: 0
+  m_HorizontalAlignment: 2
+  m_VerticalAlignment: 256
+  m_textAlignment: 65535
+  m_characterSpacing: 0
+  m_characterHorizontalScale: 1
+  m_wordSpacing: 0
+  m_lineSpacing: -20
   m_lineSpacingMax: 0
   m_paragraphSpacing: 0
   m_charWidthMaxAdj: 0
@@ -2075,6 +2213,18 @@ PrefabInstance:
       propertyPath: m_text
       value: <icon=account_outline> Guest
       objectReference: {fileID: 0}
+    - target: {fileID: 6980184479621161659, guid: b968de9f34a16e54e94710178af0821a, type: 3}
+      propertyPath: m_fontAsset
+      value: 
+      objectReference: {fileID: 11400000, guid: 6800bd89c84736d4c990739c4400e973, type: 2}
+    - target: {fileID: 6980184479621161659, guid: b968de9f34a16e54e94710178af0821a, type: 3}
+      propertyPath: m_sharedMaterial
+      value: 
+      objectReference: {fileID: 8008658800296819765, guid: 6800bd89c84736d4c990739c4400e973, type: 2}
+    - target: {fileID: 6980184479621161659, guid: b968de9f34a16e54e94710178af0821a, type: 3}
+      propertyPath: m_hasFontAssetChanged
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 8063995292643607498, guid: b968de9f34a16e54e94710178af0821a, type: 3}
       propertyPath: _button
       value: 
@@ -2567,6 +2717,18 @@ PrefabInstance:
       propertyPath: m_text
       value: Quit
       objectReference: {fileID: 0}
+    - target: {fileID: 8681256651719145930, guid: 2dbc7a2d62414a54192f2b42c14c0ca5, type: 3}
+      propertyPath: m_fontAsset
+      value: 
+      objectReference: {fileID: 11400000, guid: 6800bd89c84736d4c990739c4400e973, type: 2}
+    - target: {fileID: 8681256651719145930, guid: 2dbc7a2d62414a54192f2b42c14c0ca5, type: 3}
+      propertyPath: m_sharedMaterial
+      value: 
+      objectReference: {fileID: 8008658800296819765, guid: 6800bd89c84736d4c990739c4400e973, type: 2}
+    - target: {fileID: 8681256651719145930, guid: 2dbc7a2d62414a54192f2b42c14c0ca5, type: 3}
+      propertyPath: m_hasFontAssetChanged
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 9012454582236607070, guid: 2dbc7a2d62414a54192f2b42c14c0ca5, type: 3}
       propertyPath: m_FlexibleWidth
       value: 1
@@ -2639,6 +2801,18 @@ PrefabInstance:
     - target: {fileID: 944493367419717788, guid: 22dc86182baa3114d9fbf7e8b5c5b7a0, type: 3}
       propertyPath: m_text
       value: <icon=lock_outline> Join With Code
+      objectReference: {fileID: 0}
+    - target: {fileID: 944493367419717788, guid: 22dc86182baa3114d9fbf7e8b5c5b7a0, type: 3}
+      propertyPath: m_fontAsset
+      value: 
+      objectReference: {fileID: 11400000, guid: 6800bd89c84736d4c990739c4400e973, type: 2}
+    - target: {fileID: 944493367419717788, guid: 22dc86182baa3114d9fbf7e8b5c5b7a0, type: 3}
+      propertyPath: m_sharedMaterial
+      value: 
+      objectReference: {fileID: 8008658800296819765, guid: 6800bd89c84736d4c990739c4400e973, type: 2}
+    - target: {fileID: 944493367419717788, guid: 22dc86182baa3114d9fbf7e8b5c5b7a0, type: 3}
+      propertyPath: m_hasFontAssetChanged
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 2746339554120959059, guid: 22dc86182baa3114d9fbf7e8b5c5b7a0, type: 3}
       propertyPath: m_Pivot.x
@@ -2926,6 +3100,18 @@ PrefabInstance:
       propertyPath: m_text
       value: <icon=magnify> Matchmake
       objectReference: {fileID: 0}
+    - target: {fileID: 5512809213008706615, guid: 6491b392ffebc374e935777cfd3f45a4, type: 3}
+      propertyPath: m_fontAsset
+      value: 
+      objectReference: {fileID: 11400000, guid: 6800bd89c84736d4c990739c4400e973, type: 2}
+    - target: {fileID: 5512809213008706615, guid: 6491b392ffebc374e935777cfd3f45a4, type: 3}
+      propertyPath: m_sharedMaterial
+      value: 
+      objectReference: {fileID: 8008658800296819765, guid: 6800bd89c84736d4c990739c4400e973, type: 2}
+    - target: {fileID: 5512809213008706615, guid: 6491b392ffebc374e935777cfd3f45a4, type: 3}
+      propertyPath: m_hasFontAssetChanged
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 7459676452420432120, guid: 6491b392ffebc374e935777cfd3f45a4, type: 3}
       propertyPath: m_Pivot.x
       value: 0.5
@@ -3148,6 +3334,18 @@ PrefabInstance:
     - target: {fileID: 5512809213008706615, guid: 6491b392ffebc374e935777cfd3f45a4, type: 3}
       propertyPath: m_text
       value: <icon=new_box> Create Lobby
+      objectReference: {fileID: 0}
+    - target: {fileID: 5512809213008706615, guid: 6491b392ffebc374e935777cfd3f45a4, type: 3}
+      propertyPath: m_fontAsset
+      value: 
+      objectReference: {fileID: 11400000, guid: 6800bd89c84736d4c990739c4400e973, type: 2}
+    - target: {fileID: 5512809213008706615, guid: 6491b392ffebc374e935777cfd3f45a4, type: 3}
+      propertyPath: m_sharedMaterial
+      value: 
+      objectReference: {fileID: 8008658800296819765, guid: 6800bd89c84736d4c990739c4400e973, type: 2}
+    - target: {fileID: 5512809213008706615, guid: 6491b392ffebc374e935777cfd3f45a4, type: 3}
+      propertyPath: m_hasFontAssetChanged
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7459676452420432120, guid: 6491b392ffebc374e935777cfd3f45a4, type: 3}
       propertyPath: m_Pivot.x
@@ -4031,7 +4229,7 @@ PrefabInstance:
     - target: {fileID: 8859756083255496746, guid: cde3956384d4b694a83f0fc7898d2ffd, type: 3}
       propertyPath: m_fontAsset
       value: 
-      objectReference: {fileID: 11400000, guid: c7839873acb43fd45a5444c8c1791431, type: 2}
+      objectReference: {fileID: 11400000, guid: 6800bd89c84736d4c990739c4400e973, type: 2}
     - target: {fileID: 8859756083255496746, guid: cde3956384d4b694a83f0fc7898d2ffd, type: 3}
       propertyPath: m_fontStyle
       value: 33
@@ -4039,7 +4237,7 @@ PrefabInstance:
     - target: {fileID: 8859756083255496746, guid: cde3956384d4b694a83f0fc7898d2ffd, type: 3}
       propertyPath: m_sharedMaterial
       value: 
-      objectReference: {fileID: 2481296226650522356, guid: c7839873acb43fd45a5444c8c1791431, type: 2}
+      objectReference: {fileID: 8008658800296819765, guid: 6800bd89c84736d4c990739c4400e973, type: 2}
     - target: {fileID: 8859756083255496746, guid: cde3956384d4b694a83f0fc7898d2ffd, type: 3}
       propertyPath: m_hasFontAssetChanged
       value: 0

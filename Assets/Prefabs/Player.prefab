@@ -304,7 +304,7 @@ TrailRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1725776841299596375}
   m_Enabled: 1
-  m_CastShadows: 1
+  m_CastShadows: 0
   m_ReceiveShadows: 1
   m_DynamicOccludee: 1
   m_StaticShadowCaster: 0
@@ -581,7 +581,7 @@ MonoBehaviour:
   smoothSpeed: 1
   currentValue: 0
   targetValue: 0
-  waitForce: 4
+  waitForce: 3
   isLaunching: 0
   canLaunch: 1
   targetPos: {x: 0, y: 0, z: 0}
@@ -661,7 +661,9 @@ MonoBehaviour:
   _invertedPathToNearestParent: 
   _directChildren: []
   _trackedBehaviour: {fileID: 7717042066870514905}
-  _trackedFields: []
+  _trackedFields:
+  - type: 1
+    name: active
   _trackedMethods: []
   _ownerAuth: 1
 --- !u!114 &403329295938265375
