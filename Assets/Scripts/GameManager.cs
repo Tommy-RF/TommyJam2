@@ -206,7 +206,7 @@ public class GameManager : NetworkBehaviour
                 _CalculatePlayerProximityToTarget();
                 _RankClosestPlayers();
                 ResetQuestionCountdown();
-                RoundOver = false;
+                RoundOverSetFalse();
                 
                 return;
             }
@@ -214,9 +214,9 @@ public class GameManager : NetworkBehaviour
 
     }
     [ObserversRpc(Channel.Unreliable)]
-    public void RoundOverSetter(bool isRoundOver)
+    public void RoundOverSetFalse()
     {
-        RoundOver = isRoundOver;
+        RoundOver = false;
     }
 
 
@@ -291,7 +291,7 @@ public class GameManager : NetworkBehaviour
     [ServerRpc(Channel.Unreliable)]
     public void UpdateQuestionTimer()
     {
-        _questionCountdownTimer.value -= (Time.deltaTime);
+        _questionCountdownTimer.value -= (Time.deltaTime/2);
     }
 
 
