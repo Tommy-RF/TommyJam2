@@ -581,6 +581,7 @@ MonoBehaviour:
   targetValue: 0
   waitForce: 2
   isLaunching: 0
+  canLaunch: 1
   targetPos: {x: 0, y: 0, z: 0}
   trail: {fileID: 1869311296125600288}
   particles: {fileID: 7717042066870514905}
@@ -630,7 +631,9 @@ MonoBehaviour:
   _directChildren: []
   isReady: 0
   score: 0
+  playerID: 0
   ballPosition: 0
+  answerProximity: 0
   GameManager: {fileID: 6647649761607006406, guid: efbfcf2ce6f4fd140a82a9d0030882c0, type: 3}
 --- !u!1 &7717042066870514905
 GameObject:

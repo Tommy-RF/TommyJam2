@@ -5,11 +5,13 @@
 using PurrNet;
 using UnityEngine;
 using PurrNet.Transports;
+using System;
 
 public class PlayerNetwork : PlayerIdentity <PlayerNetwork>
 {
     public bool isReady;
     public int score;
+    public int playerID;
 
     [SerializeField] public int ballPosition;
     SyncVar<int> ballPositionSyncVar = new SyncVar<int>(0);
@@ -17,6 +19,12 @@ public class PlayerNetwork : PlayerIdentity <PlayerNetwork>
     public int answerProximity;
 
     [SerializeField] private GameManager GameManager;
+
+    protected override void OnSpawned()
+    {
+        base.OnSpawned();
+        playerID = Convert.ToInt32(owner.Value.id);
+    }
 
     public void FixedUpdate()
     {

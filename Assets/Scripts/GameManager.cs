@@ -4,6 +4,7 @@
 using System;
 using PurrNet;
 using PurrNet.Transports;
+using TMPro;
 using UnityEngine;
 
 public class GameManager : NetworkBehaviour
@@ -14,13 +15,16 @@ public class GameManager : NetworkBehaviour
 
     [SerializeField] private GameObject ReadyArea;
     [SerializeField] private GameObject ReadyText;
+    [SerializeField] private GameObject QuestionTimerText;
     [SerializeField] private GameObject TitleText;
     [SerializeField] private GameObject BottomText; // xD
     [SerializeField] private GameObject AnswerMinText;
     [SerializeField] private GameObject AnswerMaxText;
+    public GameObject CorrectPlacer;
 
     public int PlayerReadyCount;
     public int PlayerCount;
+    public bool RoundOver;
 
     public GameObject Ruler;
     public GameObject BackgroundImage;
@@ -41,6 +45,10 @@ public class GameManager : NetworkBehaviour
     private const float _QUESTIONCOUNTDOWN_TIME = 10f;
     private SyncVar<float> _questionCountdownTimer = new SyncVar<float>(_QUESTIONCOUNTDOWN_TIME);
 
+    // The countdown is for time between rounds.
+    private const float _COOLDOWN_TIME = 10f;
+    private SyncVar<float> _cooldownTimer = new SyncVar<float>(_COOLDOWN_TIME);
+
     // Questions are stored in a ScriptableObject array, which is loaded from the Resources folder. The questions are picked randomly and sent to all clients.
     private QuestionScriptableObject[] _allQuestions = new QuestionScriptableObject[0];
     private SyncVar<int> _currentQuestionIndex = new SyncVar<int>(0);
@@ -55,6 +63,8 @@ public class GameManager : NetworkBehaviour
     {
         base.OnSpawned();
         _LoadQuestions();
+        QuestionTimerText.SetActive(false);
+        RoundNumber = 0;
 
         // This is a lambda expression.
         // Whenever the _currentQuestionIndex SyncVar changes, the UpdateQuestionValues method is called to update the question values on all clients.
@@ -97,6 +107,7 @@ public class GameManager : NetworkBehaviour
     [ObserversRpc]
     public void UpdateQuestionValues()
     {
+
         BottomText.GetComponent<TMPro.TMP_Text>().text = _currentQuestionText.value;
         AnswerMinText.GetComponent<TMPro.TMP_Text>().text = _currentQuestionAnswerRange.value.x.ToString();
         AnswerMaxText.GetComponent<TMPro.TMP_Text>().text = _currentQuestionAnswerRange.value.y.ToString();
@@ -113,6 +124,10 @@ public class GameManager : NetworkBehaviour
         AnswerMinText.GetComponent<TMPro.TMP_Text>().text = _currentQuestionAnswerRange.value.x.ToString();
         AnswerMaxText.GetComponent<TMPro.TMP_Text>().text = _currentQuestionAnswerRange.value.y.ToString();
         _isQuestionPicked = true;
+        QuestionTimerText.SetActive(true);
+
+
+        RoundNumber++;
 
     }
 
@@ -123,6 +138,26 @@ public class GameManager : NetworkBehaviour
         {
             UpdateText();
             GetPlayerBallPositions();
+        }
+
+
+        if (RoundNumber >= 1)
+        {
+            Debug.Log("Question Counting down!");
+            SetQuestionCountdownText();
+            UpdateQuestionTimer();
+
+            if (_questionCountdownTimer.value <= 0 && RoundOver == false)
+            {
+                QuestionTimerText.GetComponent<TMP_Text>().SetText("Time Up!");
+                if (isServer)
+                {
+                    _GetTargetPosition();
+                    _CalculatePlayerProximityToTarget();
+                    _RankClosestPlayers();
+                }
+                RoundOver = true;
+            }
         }
     }
 
@@ -174,6 +209,9 @@ public class GameManager : NetworkBehaviour
             ResetCountdown();
             ShowText();
         }
+
+
+
     }
 
 
@@ -204,6 +242,18 @@ public class GameManager : NetworkBehaviour
         _questionCountdownTimer.value = _QUESTIONCOUNTDOWN_TIME;
     }
 
+    [ServerRpc(Channel.Unreliable)]
+    public void UpdateCooldownTimer()
+    {
+        _cooldownTimer.value -= Time.deltaTime;
+    }
+
+    [ServerRpc(Channel.Unreliable)]
+    public void ResetCooldown()
+    {
+        _cooldownTimer.value = _COOLDOWN_TIME;
+    }
+
     [ObserversRpc]
     public void SetCountdownText()
     {
@@ -212,7 +262,18 @@ public class GameManager : NetworkBehaviour
         // Checks if the ReadyText is active, and if it is, sets the text to the countdown timer. If it is not active, it does nothing.
         if (ReadyText.activeSelf)
         {
-            ReadyText.GetComponent<TMPro.TMP_Text>().text = $"{Mathf.CeilToInt(_countdownTimer.value)}...";
+            ReadyText.GetComponent<TMP_Text>().text = $"{Mathf.CeilToInt(_countdownTimer.value)}...";
+        }
+    }
+
+    [ObserversRpc]
+    public void SetQuestionCountdownText()
+    {
+        QuestionTimerText.SetActive(true);;
+        // Checks if the ReadyText is active, and if it is, sets the text to the countdown timer. If it is not active, it does nothing.
+        if (QuestionTimerText.activeSelf && RoundOver == false)
+        {
+            QuestionTimerText.GetComponent<TMP_Text>().text = $"{Mathf.CeilToInt(_questionCountdownTimer.value)}...";
         }
     }
 
