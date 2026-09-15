@@ -1,6 +1,7 @@
 // Handles the server-side game state and works with the PlayerNetwork script to manage player readiness.
 // Currently also manages UI stuff... Should probably be put into a separate class... Oh well...
 
+using System;
 using PurrNet;
 using PurrNet.Transports;
 using UnityEngine;
@@ -26,6 +27,9 @@ public class GameManager : NetworkBehaviour
     
     public int RoundNumber;
     public int TurnNumber;
+
+    // The target answer position is the position on the x axis where the correct answer is located. It is calculated based on the question's answer value and the min and max answer values.
+    public int targetAnswerPosition;
 
     private int[] _PlayerBallPosition = new int[0];
 
@@ -60,6 +64,7 @@ public class GameManager : NetworkBehaviour
         _currentQuestionIndex.onChanged += _ => UpdateQuestionValues();
     }
 
+
     // Loads all questions from the Resources folder into the _allQuestions array. This is called on the server when the GameManager is spawned.
     [ServerRpc(Channel.Unreliable)]
     private void _LoadQuestions()
@@ -67,13 +72,15 @@ public class GameManager : NetworkBehaviour
         _allQuestions = Resources.LoadAll<QuestionScriptableObject>("Questions");
     }
 
+
     // Picks a random question from the _allQuestions array and sets the current question values.
     [ServerRpc(Channel.Unreliable)]
     private void _PickRandomQuestion()
     {
-        int randomIndex = Random.Range(0, _allQuestions.Length);
+        int randomIndex = UnityEngine.Random.Range(0, _allQuestions.Length);
         _currentQuestionIndex.value = randomIndex;
     }
+
 
     // Gets the current question values from the _allQuestions array and sets the current question values. This is called on the server when a question is picked.
     [ServerRpc(Channel.Unreliable)]
@@ -84,6 +91,7 @@ public class GameManager : NetworkBehaviour
         _currentQuestionAnswerRange.value = _allQuestions[_currentQuestionIndex.value].answerRange;
         //_currentQuestionImage = _allQuestions[_currentQuestionIndex.value].image;
     }
+
 
     // This updates the question values on all clients. It is called whenever the _currentQuestionIndex SyncVar changes, via a lambda expression subscription.
     [ObserversRpc]
@@ -96,6 +104,7 @@ public class GameManager : NetworkBehaviour
         AnswerMaxText.SetActive(true);
     }
 
+
     [ObserversRpc]
     public void SetQuestionText()
     {
@@ -107,15 +116,16 @@ public class GameManager : NetworkBehaviour
 
     }
 
+
     public void FixedUpdate()
     {
         if (_isQuestionPicked == false)
         {
             UpdateText();
             GetPlayerBallPositions();
-            GetProximityToAnswers();
         }
     }
+
 
     [ServerRpc(Channel.Unreliable)]
     public void UpdateText()
@@ -152,6 +162,9 @@ public class GameManager : NetworkBehaviour
                 if (isServer)
                 {
                     SetQuestionText();
+                    _GetTargetPosition();
+                    _CalculatePlayerProximityToTarget();
+                    _RankClosestPlayers();
                 }
             }
         }
@@ -163,11 +176,13 @@ public class GameManager : NetworkBehaviour
         }
     }
 
+
     [ServerRpc(Channel.Unreliable)]
     public void UpdateTimer()
     {
         _countdownTimer.value -= Time.deltaTime;
     }
+
 
     [ServerRpc(Channel.Unreliable)]
     public void ResetCountdown()
@@ -175,11 +190,13 @@ public class GameManager : NetworkBehaviour
         _countdownTimer.value = _COUNTDOWN_TIME;
     }
 
+
     [ServerRpc(Channel.Unreliable)]
     public void UpdateQuestionTimer()
     {
         _questionCountdownTimer.value -= Time.deltaTime;
     }
+
 
     [ServerRpc(Channel.Unreliable)]
     public void ResetQuestionCountdown()
@@ -199,6 +216,7 @@ public class GameManager : NetworkBehaviour
         }
     }
 
+
     [ObserversRpc]
     public void ClearText()
     {
@@ -216,6 +234,7 @@ public class GameManager : NetworkBehaviour
         AnswerMaxText.SetActive(false);
     }
 
+
     // Gets the ball positions of all players and stores them in the _PlayerBallPosition array.
     [ServerRpc(Channel.Unreliable)]
     private void GetPlayerBallPositions()
@@ -226,26 +245,71 @@ public class GameManager : NetworkBehaviour
 
         foreach (var player in PlayerNetwork.allPlayers)
             {
-                Debug.Log($"Player {player.Value.id} ball position: {player.Value.ballPosition}");
                 _PlayerBallPosition[playerIndex] = player.Value.ballPosition;
 
                 playerIndex++;
             }
     }
 
-    // Calculates the proximity of each ball to the min and max answer positions.
+
+    // Grabs the question's answer and positions it on a scale beetween the min and the max answer position.
+    // This position is then used to determine the "target anser position" for the players to aim for with their balls.
+    // The target position is set on an x axis between the min and max answer positions, and is calculated based on the question's answer value, linearly interpolated between the min and max answer values.
     [ServerRpc(Channel.Unreliable)]
-    private void GetProximityToAnswers()
+    private void _GetTargetPosition()
+    {
+        var minAnswerPosition = AnswerMinText.transform.position.x;
+        var maxAnswerPosition = AnswerMaxText.transform.position.x;
+
+        var minAnswerValue = _currentQuestionAnswerRange.value.x;
+        var maxAnswerValue = _currentQuestionAnswerRange.value.y;
+
+        var targetPosition = Mathf.Lerp(minAnswerPosition, maxAnswerPosition, (float) (_currentQuestionAnswer.value - minAnswerValue) / (maxAnswerValue - minAnswerValue));
+        targetAnswerPosition = Mathf.RoundToInt(targetPosition);
+
+    }
+
+
+    // Calculates the proximity of each player's ball position to the target answer position and stores it in the answerProximity variable of each player.
+    [ServerRpc(Channel.Unreliable)]
+    private void _CalculatePlayerProximityToTarget()
     {
         foreach (var player in PlayerNetwork.allPlayers)
         {
             var playerBallPosition = player.Value.ballPosition;
+            var proximity = Mathf.Abs(playerBallPosition - targetAnswerPosition);
+            player.Value.answerProximity = (int) proximity;
 
-            var distanceToMin = Mathf.Abs(playerBallPosition - AnswerMinText.transform.position.x);
-            var distanceToMax = Mathf.Abs(playerBallPosition - AnswerMaxText.transform.position.x);
-
-            Debug.Log($"Player {player.Value.id} ball position: {playerBallPosition}, distance to min answer: {distanceToMin}, distance to max answer: {distanceToMax}");
+            // Debug.Log($"Player {player.Value.id} ball position: {playerBallPosition}, target position: {targetAnswerPosition}, proximity: {proximity}");
         }
     }
+
+
+    // Rank the players based on their respective ball positions' proximity to the target answer position.
+    // The players are ranked from closest first to the farthest last.
+    [ServerRpc(Channel.Unreliable)]
+    private void _RankClosestPlayers()
+    {
+        var rankedPlayers = new PlayerNetwork[PlayerNetwork.allPlayers.Count];
+        var playerIndex = 0;
+        foreach (var player in PlayerNetwork.allPlayers)
+        {
+            rankedPlayers[playerIndex] = player.Value;
+            playerIndex++;
+        }
+
+        // Sort the players by their proximity to the target answer position.
+        // Uses a lambda expression with a custom comparison to sort the players based on their answerProximity value.
+        Array.Sort(rankedPlayers, (a, b) => a.answerProximity.CompareTo(b.answerProximity));
+
+        Debug.Log("Ranked players:");
+        var rank = 1;
+        foreach (var player in rankedPlayers)
+        {
+            Debug.Log($"Player {player.id} proximity: {player.answerProximity}, rank: {rank}.");   
+            rank++;
+        }
+    }
+
 
 }
