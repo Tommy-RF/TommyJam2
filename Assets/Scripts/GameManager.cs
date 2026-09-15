@@ -21,6 +21,10 @@ public class GameManager : NetworkBehaviour
     [SerializeField] private GameObject AnswerMinText;
     [SerializeField] private GameObject AnswerMaxText;
     public GameObject CorrectPlacer;
+    public GameObject CorrectPlacerText;
+    public GameObject CorrectPlacerImage;
+    public GameObject MinArea;
+    public GameObject MaxArea;
 
     public int PlayerReadyCount;
     public int PlayerCount;
@@ -65,6 +69,9 @@ public class GameManager : NetworkBehaviour
         _LoadQuestions();
         QuestionTimerText.SetActive(false);
         RoundNumber = 0;
+
+        CorrectPlacerText.SetActive(false);
+        CorrectPlacerImage.SetActive(false);
 
         // This is a lambda expression.
         // Whenever the _currentQuestionIndex SyncVar changes, the UpdateQuestionValues method is called to update the question values on all clients.
@@ -152,6 +159,9 @@ public class GameManager : NetworkBehaviour
                 QuestionTimerText.GetComponent<TMP_Text>().SetText("Time Up!");
                 if (isServer)
                 {
+                    CorrectPlacerImage.SetActive(true);
+                    CorrectPlacerText.SetActive(true);
+                    ChangeCorrectPlacer();
                     _GetTargetPosition();
                     _CalculatePlayerProximityToTarget();
                     _RankClosestPlayers();
@@ -273,6 +283,10 @@ public class GameManager : NetworkBehaviour
         // Checks if the ReadyText is active, and if it is, sets the text to the countdown timer. If it is not active, it does nothing.
         if (QuestionTimerText.activeSelf && RoundOver == false)
         {
+            if (_questionCountdownTimer.value <= 0)
+            {
+                _questionCountdownTimer.value = 0;
+            }
             QuestionTimerText.GetComponent<TMP_Text>().text = $"{Mathf.CeilToInt(_questionCountdownTimer.value)}...";
         }
     }
@@ -319,8 +333,8 @@ public class GameManager : NetworkBehaviour
     [ServerRpc(Channel.Unreliable)]
     private void _GetTargetPosition()
     {
-        var minAnswerPosition = AnswerMinText.transform.position.x;
-        var maxAnswerPosition = AnswerMaxText.transform.position.x;
+        var minAnswerPosition = MinArea.transform.position.x;
+        var maxAnswerPosition = MaxArea.transform.position.x;
 
         var minAnswerValue = _currentQuestionAnswerRange.value.x;
         var maxAnswerValue = _currentQuestionAnswerRange.value.y;
@@ -330,6 +344,11 @@ public class GameManager : NetworkBehaviour
 
     }
 
+    public void ChangeCorrectPlacer()
+    {
+        CorrectPlacer.transform.position = new Vector3(targetAnswerPosition, 0, 0);
+        CorrectPlacer.GetComponentInChildren<TMP_Text>().SetText($"{_currentQuestionAnswer.value}");
+    }
 
     // Calculates the proximity of each player's ball position to the target answer position and stores it in the answerProximity variable of each player.
     [ServerRpc(Channel.Unreliable)]
@@ -358,6 +377,7 @@ public class GameManager : NetworkBehaviour
             rankedPlayers[playerIndex] = player.Value;
             playerIndex++;
         }
+        //Debug.Log(playerIndex);
 
         // Sort the players by their proximity to the target answer position.
         // Uses a lambda expression with a custom comparison to sort the players based on their answerProximity value.

@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: QuestionDice
   m_EditorClassIdentifier: Assembly-CSharp::QuestionScriptableObject
   id: 11
-  questionText: What is the total number of dots on a pair of dice
+  questionText: What is the total number of dots on a pair of dice?
   answer: 42
   answerRange: {x: 5, y: 50}
   image: {fileID: 21300000, guid: 4ece45b56fd74014faf6e683ae30a856, type: 3}
