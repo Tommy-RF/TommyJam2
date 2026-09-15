@@ -581,7 +581,7 @@ MonoBehaviour:
   smoothSpeed: 1
   currentValue: 0
   targetValue: 0
-  waitForce: 2
+  waitForce: 4
   isLaunching: 0
   canLaunch: 1
   targetPos: {x: 0, y: 0, z: 0}

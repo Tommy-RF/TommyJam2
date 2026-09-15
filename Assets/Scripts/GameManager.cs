@@ -46,11 +46,11 @@ public class GameManager : NetworkBehaviour
     private SyncVar<float> _countdownTimer = new SyncVar<float>(_COUNTDOWN_TIME);
 
     // The countdown is for each player during their turn. The turn will change when the timer has elapsed.
-    private const float _QUESTIONCOUNTDOWN_TIME = 15f;
+    [SerializeField] private const float _QUESTIONCOUNTDOWN_TIME = 15f;
     private SyncVar<float> _questionCountdownTimer = new SyncVar<float>(_QUESTIONCOUNTDOWN_TIME);
 
     // The countdown is for time between rounds.
-    private const float _COOLDOWN_TIME = 15f;
+    [SerializeField] private const float _COOLDOWN_TIME = 5f;
     private SyncVar<float> _cooldownTimer = new SyncVar<float>(_COOLDOWN_TIME);
 
     // Questions are stored in a ScriptableObject array, which is loaded from the Resources folder. The questions are picked randomly and sent to all clients.
@@ -107,6 +107,10 @@ public class GameManager : NetworkBehaviour
         _currentQuestionAnswer.value = _allQuestions[_currentQuestionIndex.value].answer;
         _currentQuestionAnswerRange.value = _allQuestions[_currentQuestionIndex.value].answerRange;
         //_currentQuestionImage = _allQuestions[_currentQuestionIndex.value].image;
+
+        string answerText = _currentQuestionAnswer.value.ToString();
+
+        ChangeCorrectText(answerText);
     }
 
 
@@ -133,22 +137,23 @@ public class GameManager : NetworkBehaviour
         _isQuestionPicked = true;
         QuestionTimerText.SetActive(true);
 
-
+        ResetCooldown();
         RoundNumber++;
+        return;
 
     }
 
 
     public void FixedUpdate()
     {
-        if (_isQuestionPicked == false)
+        if (_isQuestionPicked == false && RoundNumber <= 0)
         {
             UpdateText();
             GetPlayerBallPositions();
         }
 
 
-        if (RoundNumber >= 1)
+        if (RoundNumber >= 1 && RoundOver == false)
         {
             Debug.Log("Question Counting down!");
             SetQuestionCountdownText();
@@ -169,7 +174,39 @@ public class GameManager : NetworkBehaviour
                 }
                 RoundOver = true;
             }
+
         }
+
+        if (RoundOver == true)
+        {
+            NextRoundPrep();
+        }
+    }
+
+    [ServerRpc(Channel.Unreliable)]
+    public void NextRoundPrep()
+    {
+        if (RoundOver == true)
+        {
+
+            UpdateCooldownTimer();
+
+            if (_cooldownTimer.value <= 0 && RoundOver == true)
+            {
+                CorrectPlacer.transform.position = new Vector3(1000, -1.8f, 0);
+                _PickRandomQuestion();
+                GetQuestionValues();
+                SetQuestionText();
+                _GetTargetPosition();
+                _CalculatePlayerProximityToTarget();
+                _RankClosestPlayers();
+                ResetQuestionCountdown();
+                RoundOver = false;
+                
+                return;
+            }
+        }
+
     }
 
 
@@ -198,7 +235,7 @@ public class GameManager : NetworkBehaviour
             
             UpdateTimer();
 
-            if (_countdownTimer.value <= 0)
+            if (_countdownTimer.value <= 0 && _isQuestionPicked == false)
             {
                 ClearText();
                 Ruler.SetActive(true);
@@ -288,7 +325,8 @@ public class GameManager : NetworkBehaviour
             {
                 _questionCountdownTimer.value = 0;
             }
-            QuestionTimerText.GetComponent<TMP_Text>().text = $"{Mathf.CeilToInt(_questionCountdownTimer.value)}...";
+            //QuestionTimerText.GetComponent<TMP_Text>().text = $"{Mathf.CeilToInt(_questionCountdownTimer.value)}...";
+            QuestionTimerText.GetComponent<TMP_Text>().text = $"{_questionCountdownTimer.value.ToString("F0")}...";
         }
     }
 
@@ -348,15 +386,18 @@ public class GameManager : NetworkBehaviour
     [ObserversRpc]
     public void ChangeCorrectPlacer()
     {
-        CorrectPlacer.transform.position = new Vector3(targetAnswerPosition, 0, 0);
-        CorrectPlacer.GetComponentInChildren<TMP_Text>().SetText($"{_currentQuestionAnswer.value}");
+        CorrectPlacer.transform.position = new Vector3(targetAnswerPosition, -1.8f, 0);
     }
 
     [ServerRpc]
     public void ChangeServerCorrectPlacer()
     {
-        CorrectPlacer.transform.position = new Vector3(targetAnswerPosition, 0, 0);
-        CorrectPlacer.GetComponentInChildren<TMP_Text>().SetText($"{_currentQuestionAnswer.value}");
+        CorrectPlacer.transform.position = new Vector3(targetAnswerPosition, -1.8f, 0);
+    }
+
+    public void ChangeCorrectText(string text)
+    {
+        CorrectPlacerText.GetComponent<TMP_Text>().SetText($"{text}");
     }
 
     // Calculates the proximity of each player's ball position to the target answer position and stores it in the answerProximity variable of each player.
