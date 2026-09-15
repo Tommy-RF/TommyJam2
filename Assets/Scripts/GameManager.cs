@@ -46,11 +46,11 @@ public class GameManager : NetworkBehaviour
     private SyncVar<float> _countdownTimer = new SyncVar<float>(_COUNTDOWN_TIME);
 
     // The countdown is for each player during their turn. The turn will change when the timer has elapsed.
-    private const float _QUESTIONCOUNTDOWN_TIME = 10f;
+    private const float _QUESTIONCOUNTDOWN_TIME = 15f;
     private SyncVar<float> _questionCountdownTimer = new SyncVar<float>(_QUESTIONCOUNTDOWN_TIME);
 
     // The countdown is for time between rounds.
-    private const float _COOLDOWN_TIME = 10f;
+    private const float _COOLDOWN_TIME = 15f;
     private SyncVar<float> _cooldownTimer = new SyncVar<float>(_COOLDOWN_TIME);
 
     // Questions are stored in a ScriptableObject array, which is loaded from the Resources folder. The questions are picked randomly and sent to all clients.
@@ -162,6 +162,7 @@ public class GameManager : NetworkBehaviour
                     CorrectPlacerImage.SetActive(true);
                     CorrectPlacerText.SetActive(true);
                     ChangeCorrectPlacer();
+                    ChangeServerCorrectPlacer();
                     _GetTargetPosition();
                     _CalculatePlayerProximityToTarget();
                     _RankClosestPlayers();
@@ -344,7 +345,15 @@ public class GameManager : NetworkBehaviour
 
     }
 
+    [ObserversRpc]
     public void ChangeCorrectPlacer()
+    {
+        CorrectPlacer.transform.position = new Vector3(targetAnswerPosition, 0, 0);
+        CorrectPlacer.GetComponentInChildren<TMP_Text>().SetText($"{_currentQuestionAnswer.value}");
+    }
+
+    [ServerRpc]
+    public void ChangeServerCorrectPlacer()
     {
         CorrectPlacer.transform.position = new Vector3(targetAnswerPosition, 0, 0);
         CorrectPlacer.GetComponentInChildren<TMP_Text>().SetText($"{_currentQuestionAnswer.value}");
