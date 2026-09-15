@@ -3,6 +3,7 @@
 
 using PurrNet;
 using PurrNet.Transports;
+using System.Collections;
 using TMPro;
 using UnityEngine;
 
@@ -33,6 +34,7 @@ public class PlayerPhysics : NetworkBehaviour
     public float targetValue;
     public float waitForce;
     public bool isLaunching;
+    public bool canLaunch;
     public Vector3 targetPos;
     public TrailRenderer trail;
     public GameObject particles;
@@ -78,13 +80,16 @@ public class PlayerPhysics : NetworkBehaviour
         networkManager.onTick -= OnTick;
     }
 
+
     private void Update()
     {
         //We have to store the input to be used during the next tick
         Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
         Plane groundPlane = new Plane(Vector3.up, 0f); // Adjust height as needed
 
-        if (Input.GetMouseButton(0) && this.rigidbody.linearVelocity.sqrMagnitude < waitForce)
+        //this.rigidbody.linearVelocity.sqrMagnitude < waitForce
+
+        if (Input.GetMouseButton(0) && canLaunch)
         {
             if (isOwner)
             {
@@ -100,6 +105,8 @@ public class PlayerPhysics : NetworkBehaviour
             targetValue = minLaunchForce;
             particles.SetActive(false);
         }
+
+
 
         currentValue = Mathf.Lerp(currentValue, targetValue, smoothSpeed * Time.deltaTime);
         launchForceText.GetComponent<TMP_Text>().SetText(currentValue.ToString("F0"));
@@ -121,11 +128,32 @@ public class PlayerPhysics : NetworkBehaviour
             targetPos = ray.GetPoint(enter);
             isLaunching = true;
             launchForce = currentValue;
+            StartCoroutine(CountdownToLaunch());
+
         }
+    }
+
+    public IEnumerator CountdownToLaunch()
+    {
+        canLaunch = false;
+
+        // Pause execution for 3 seconds
+        yield return new WaitForSeconds(3f);
+
+        canLaunch = true;
     }
 
     private void FixedUpdate()
     {
+        //if (this.rigidbody.linearVelocity.sqrMagnitude < waitForce)
+        //{
+        //    canLaunch = true;
+        //    Debug.Log($"{rigidbody.linearVelocity.sqrMagnitude}");
+        //}
+        //else
+        //{
+        //    canLaunch = false;
+        //}
         //playerNetwork.ballPosition = (int) transform.position.x;
     }
 
