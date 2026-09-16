@@ -29,6 +29,8 @@ public class GameManager : NetworkBehaviour
     public int PlayerReadyCount;
     public int PlayerCount;
     public bool RoundOver;
+    public int maxRounds = 3;
+    public bool finishedRanking = false;
 
     public GameObject Ruler;
     public GameObject BackgroundImage;
@@ -156,22 +158,27 @@ public class GameManager : NetworkBehaviour
 
         if (RoundNumber >= 1 && RoundOver == false)
         {
-            Debug.Log("Question Counting down!");
+            //Debug.Log("Question Counting down!");
             SetQuestionCountdownText();
             UpdateQuestionTimer();
 
             if (_questionCountdownTimer.value <= 0 && RoundOver == false)
             {
                 QuestionTimerText.GetComponent<TMP_Text>().SetText("Time Up!");
+                CorrectPlacerImage.SetActive(true);
+                CorrectPlacerText.SetActive(true);
+                ChangeCorrectPlacer();
                 if (isServer)
                 {
-                    CorrectPlacerImage.SetActive(true);
-                    CorrectPlacerText.SetActive(true);
-                    ChangeCorrectPlacer();
+
                     ChangeServerCorrectPlacer();
                     _GetTargetPosition();
                     _CalculatePlayerProximityToTarget();
-                    _RankClosestPlayers();
+                    if (!finishedRanking)
+                    {
+                        _RankClosestPlayers();
+                    }
+                    finishedRanking = true;
                 }
                 RoundOver = true;
             }
@@ -204,10 +211,9 @@ public class GameManager : NetworkBehaviour
                 SetQuestionText();
                 _GetTargetPosition();
                 _CalculatePlayerProximityToTarget();
-                _RankClosestPlayers();
                 ResetQuestionCountdown();
                 RoundOverSetFalse();
-                
+                finishedRanking = false;
                 return;
             }
         }
@@ -258,7 +264,6 @@ public class GameManager : NetworkBehaviour
                     SetQuestionText();
                     _GetTargetPosition();
                     _CalculatePlayerProximityToTarget();
-                    _RankClosestPlayers();
                 }
             }
         }
@@ -451,6 +456,9 @@ public class GameManager : NetworkBehaviour
             Debug.Log($"Player {player.id} proximity: {player.answerProximity}, rank: {rank}.");   
             rank++;
         }
+
+        rankedPlayers[0].score++;
+        Debug.Log("Player " + rankedPlayers[0].id + " scored a point! Total score: " + rankedPlayers[0].score);
     }
 
 
