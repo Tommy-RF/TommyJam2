@@ -4,7 +4,7 @@
             {
                 "type": "System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089",
                 "key": "buildOutputDirList",
-                "value": "{\"m_Value\":\"C:/Users/karat/OneDrive/Desktop/Create with Code Projectx/Github/JackboxJam/TommyJam2/Builds;;;;;;;;;\"}"
+                "value": "{\"m_Value\":\"C:/Users/karat/OneDrive/Desktop/Create with Code Projectx/Github/JackboxJam/TommyJam2/Brotli Build;C:/Users/karat/OneDrive/Desktop/Create with Code Projectx/Github/JackboxJam/TommyJam2/1.0.3;C:/Users/karat/OneDrive/Desktop/Create with Code Projectx/Github/JackboxJam/TommyJam2/1.0.1 Build Decompressed;C:/Users/karat/OneDrive/Desktop/Create with Code Projectx/Github/JackboxJam/TommyJam2/1.0.2 Build;C:/Users/karat/OneDrive/Desktop/Create with Code Projectx/Github/JackboxJam/TommyJam2/1.0.1 Build;C:/Users/karat/OneDrive/Desktop/Create with Code Projectx/Github/JackboxJam/TommyJam2/1.0 Build;C:/Users/karat/OneDrive/Desktop/Create with Code Projectx/Github/JackboxJam/TommyJam2/ReleaseBuilds;C:/Users/karat/OneDrive/Desktop/Create with Code Projectx/Github/JackboxJam/TommyJam2/Release Builds;C:/Users/karat/OneDrive/Desktop/Create with Code Projectx/Github/JackboxJam/TommyJam2/Builds;\"}"
             },
             {
                 "type": "System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089",

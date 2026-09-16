@@ -7022,7 +7022,7 @@ PrefabInstance:
       objectReference: {fileID: 646662642}
     - target: {fileID: 6647649761607006406, guid: efbfcf2ce6f4fd140a82a9d0030882c0, type: 3}
       propertyPath: maxRounds
-      value: 5
+      value: 10
       objectReference: {fileID: 0}
     - target: {fileID: 6647649761607006406, guid: efbfcf2ce6f4fd140a82a9d0030882c0, type: 3}
       propertyPath: BottomText

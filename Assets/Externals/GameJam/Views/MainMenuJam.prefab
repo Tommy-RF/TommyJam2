@@ -777,7 +777,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: "How to play:\n\n\u2022 Answer trivia questions by placing yourself on a timeline from lowest to highest, left to right!\n\n\u2022 Click, hold and release to launch yourself towards where your mouse is pointing to land in the spot you think is correct.\n\n\u2022 The player closest to the correct answer wins a point!\n\n\u2022 Beware, other players can bounce into you to knock you off your target before time ends!\n"
+  m_text: "How to play:\n\n\u2022 Answer trivia questions by placing yourself on a timeline from lowest to highest, left to right!\n\n\u2022 Click, hold and release to launch yourself towards where your mouse is pointing to land in the spot you think is correct.\n\n\u2022 The player closest to the correct answer when the timer ends wins a point!\n\n\u2022 Beware, other players can bounce into you to knock you off your target before time ends!\n"
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 6800bd89c84736d4c990739c4400e973, type: 2}
   m_sharedMaterial: {fileID: 8008658800296819765, guid: 6800bd89c84736d4c990739c4400e973, type: 2}

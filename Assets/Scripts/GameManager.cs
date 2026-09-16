@@ -78,7 +78,7 @@ public class GameManager : NetworkBehaviour
     private SyncVar<float> _countdownTimer = new SyncVar<float>(_COUNTDOWN_TIME);
 
     // The countdown is for each player during their turn. The turn will change when the timer has elapsed.
-    [SerializeField] private const float _QUESTIONCOUNTDOWN_TIME = 10f;
+    [SerializeField] private const float _QUESTIONCOUNTDOWN_TIME = 15f;
     private SyncVar<float> _questionCountdownTimer = new SyncVar<float>(_QUESTIONCOUNTDOWN_TIME);
 
     // The countdown is for time between rounds.
