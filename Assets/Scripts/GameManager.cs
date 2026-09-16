@@ -2,6 +2,7 @@
 // Currently also manages UI stuff... Should probably be put into a separate class... Oh well...
 
 using System;
+using System.Collections.Generic;
 using PurrNet;
 using PurrNet.Transports;
 using TMPro;
@@ -13,6 +14,13 @@ public class GameManager : NetworkBehaviour
     public GameObject ExampleObject;
     public GameObject ReadyToPlayObject;
 
+    [SerializeField] private GameObject ScoreBoardUI;
+    [SerializeField] private GameObject FirstPlaceUI;
+    [SerializeField] private GameObject SecondPlaceUI;
+    [SerializeField] private GameObject ThirdPlaceUI;
+    [SerializeField] private GameObject FourthPlaceUI;
+
+    [SerializeField] private GameObject IntroUI;
     [SerializeField] private GameObject ReadyArea;
     [SerializeField] private GameObject ReadyText;
     [SerializeField] private GameObject QuestionTimerText;
@@ -20,6 +28,7 @@ public class GameManager : NetworkBehaviour
     [SerializeField] private GameObject BottomText; // xD
     [SerializeField] private GameObject AnswerMinText;
     [SerializeField] private GameObject AnswerMaxText;
+
     public GameObject CorrectPlacer;
     public GameObject CorrectPlacerText;
     public GameObject CorrectPlacerImage;
@@ -29,13 +38,15 @@ public class GameManager : NetworkBehaviour
     public int PlayerReadyCount;
     public int PlayerCount;
     public bool RoundOver;
-    public int maxRounds = 3;
+    public int maxRounds = 2;
     public bool finishedRanking = false;
+
+    public bool isScoreboardSetUp = false;
 
     public GameObject Ruler;
     public GameObject BackgroundImage;
     
-    public int RoundNumber;
+    private SyncVar<int> _roundNumber = new SyncVar<int>(0);
     public int TurnNumber;
 
     // The target answer position is the position on the x axis where the correct answer is located. It is calculated based on the question's answer value and the min and max answer values.
@@ -70,7 +81,7 @@ public class GameManager : NetworkBehaviour
         base.OnSpawned();
         _LoadQuestions();
         QuestionTimerText.SetActive(false);
-        RoundNumber = 0;
+        _roundNumber.value = 0;
 
         CorrectPlacerText.SetActive(true);
         CorrectPlacerImage.SetActive(true);
@@ -137,32 +148,35 @@ public class GameManager : NetworkBehaviour
         AnswerMinText.GetComponent<TMPro.TMP_Text>().text = _currentQuestionAnswerRange.value.x.ToString();
         AnswerMaxText.GetComponent<TMPro.TMP_Text>().text = _currentQuestionAnswerRange.value.y.ToString();
         _isQuestionPicked = true;
-        QuestionTimerText.SetActive(true);
-
         ClearText();
+        QuestionTimerText.SetActive(true);
         ResetCooldown();
-        RoundNumber++;
-        return;
 
     }
 
 
     public void FixedUpdate()
     {
-        if (_isQuestionPicked == false && RoundNumber <= 0)
+        if (_isQuestionPicked == false && _roundNumber.value <= 0)
         {
             UpdateText();
             GetPlayerBallPositions();
         }
 
 
-        if (RoundNumber >= 1 && RoundOver == false)
+        if (_roundNumber.value >= 1 && RoundOver == false)
         {
             //Debug.Log("Question Counting down!");
+            Debug.Log("Round Number: " + _roundNumber.value);
+            Debug.Log("Max Rounds: " + maxRounds);
+            if (_roundNumber.value >= maxRounds)
+            {
+                Debug.Log("Max rounds reached!");
+            }
             SetQuestionCountdownText();
             UpdateQuestionTimer();
 
-            if (_questionCountdownTimer.value <= 0 && RoundOver == false)
+            if (_questionCountdownTimer.value <= 0)
             {
                 QuestionTimerText.GetComponent<TMP_Text>().SetText("Time Up!");
                 CorrectPlacerImage.SetActive(true);
@@ -170,7 +184,6 @@ public class GameManager : NetworkBehaviour
                 ChangeCorrectPlacer();
                 if (isServer)
                 {
-
                     ChangeServerCorrectPlacer();
                     _GetTargetPosition();
                     _CalculatePlayerProximityToTarget();
@@ -179,15 +192,23 @@ public class GameManager : NetworkBehaviour
                         _RankClosestPlayers();
                     }
                     finishedRanking = true;
+                    RoundOver = true;
                 }
-                RoundOver = true;
             }
 
         }
 
-        if (RoundOver == true)
+        if (RoundOver == true && _roundNumber.value < maxRounds)
         {
+            Debug.Log("Round Over! Preparing for next round...");
             NextRoundPrep();
+        }
+
+        else if (isServer &&RoundOver == true && _roundNumber.value >= maxRounds && isScoreboardSetUp == false)
+        {
+            Debug.Log("Game Over! Prepping scoreboard...");
+            //ResetPlayerScores();
+            SetUpScoreboard();
         }
     }
 
@@ -206,25 +227,20 @@ public class GameManager : NetworkBehaviour
 
             if (_cooldownTimer.value <= 0 && RoundOver == true)
             {
+                _roundNumber.value++;
                 _PickRandomQuestion();
                 GetQuestionValues();
                 SetQuestionText();
                 _GetTargetPosition();
                 _CalculatePlayerProximityToTarget();
                 ResetQuestionCountdown();
-                RoundOverSetFalse();
+                RoundOver = false;
                 finishedRanking = false;
                 return;
             }
         }
 
     }
-    [ObserversRpc(Channel.Unreliable)]
-    public void RoundOverSetFalse()
-    {
-        RoundOver = false;
-    }
-
 
 
     [ServerRpc(Channel.Unreliable)]
@@ -261,6 +277,7 @@ public class GameManager : NetworkBehaviour
                 GetQuestionValues();
                 if (isServer)
                 {
+                    _roundNumber.value++;
                     SetQuestionText();
                     _GetTargetPosition();
                     _CalculatePlayerProximityToTarget();
@@ -337,13 +354,14 @@ public class GameManager : NetworkBehaviour
         // Checks if the ReadyText is active, and if it is, sets the text to the countdown timer. If it is not active, it does nothing.
         if (QuestionTimerText.activeSelf && RoundOver == false)
         {
-            if (_questionCountdownTimer.value <= 0)
+            if (_questionCountdownTimer.value <= 0 && isServer)
             {
                 _questionCountdownTimer.value = 0;
             }
             //QuestionTimerText.GetComponent<TMP_Text>().text = $"{Mathf.CeilToInt(_questionCountdownTimer.value)}...";
             QuestionTimerText.GetComponent<TMP_Text>().text = $"{_questionCountdownTimer.value.ToString("F0")}...";
         }
+    
     }
 
 
@@ -353,7 +371,9 @@ public class GameManager : NetworkBehaviour
         ReadyArea.SetActive(false);
         ReadyText.SetActive(false);
         TitleText.SetActive(false);
+    
     }
+
     [ObserversRpc]
     public void ShowText()
     {
@@ -362,6 +382,7 @@ public class GameManager : NetworkBehaviour
         TitleText.SetActive(true);
         AnswerMinText.SetActive(false);
         AnswerMaxText.SetActive(false);
+    
     }
 
 
@@ -379,6 +400,7 @@ public class GameManager : NetworkBehaviour
 
                 playerIndex++;
             }
+    
     }
 
 
@@ -396,24 +418,28 @@ public class GameManager : NetworkBehaviour
 
         var targetPosition = Mathf.Lerp(minAnswerPosition, maxAnswerPosition, (float) (_currentQuestionAnswer.value - minAnswerValue) / (maxAnswerValue - minAnswerValue));
         targetAnswerPosition = Mathf.RoundToInt(targetPosition);
-
+    
     }
 
     [ObserversRpc]
     public void ChangeCorrectPlacer()
     {
         CorrectPlacer.transform.position = new Vector3(targetAnswerPosition, -1.8f, 0);
+    
     }
 
     [ServerRpc]
     public void ChangeServerCorrectPlacer()
     {
         CorrectPlacer.transform.position = new Vector3(targetAnswerPosition, -1.8f, 0);
+   
+   
     }
 
     public void ChangeCorrectText(string text)
     {
         CorrectPlacerText.GetComponent<TMP_Text>().SetText($"{text}");
+    
     }
 
     // Calculates the proximity of each player's ball position to the target answer position and stores it in the answerProximity variable of each player.
@@ -428,6 +454,7 @@ public class GameManager : NetworkBehaviour
 
             // Debug.Log($"Player {player.Value.id} ball position: {playerBallPosition}, target position: {targetAnswerPosition}, proximity: {proximity}");
         }
+    
     }
 
 
@@ -457,9 +484,63 @@ public class GameManager : NetworkBehaviour
             rank++;
         }
 
-        rankedPlayers[0].score++;
-        Debug.Log("Player " + rankedPlayers[0].id + " scored a point! Total score: " + rankedPlayers[0].score);
+        rankedPlayers[0].score.value++;
+        Debug.Log("Player " + rankedPlayers[0].id + " scored a point! Total score: " + rankedPlayers[0].score.value);
+
+
     }
 
+    [ObserversRpc]
+    public void SetUpScoreboard()
+    {
+        var rankedPlayers = new List<PlayerNetwork>(PlayerNetwork.allPlayers.Values);
+
+        rankedPlayers.Sort((first, second) =>
+            second.score.value.CompareTo(first.score.value));
+
+        if (rankedPlayers.Count == 0)
+        {
+            Debug.LogWarning("Cannot populate scoreboard: no players found.");
+            return;
+        }
+
+        SetScoreboardText(FirstPlaceUI, "1st", rankedPlayers[0]);
+
+        if (rankedPlayers.Count > 1)
+            SetScoreboardText(SecondPlaceUI, "2nd", rankedPlayers[1]);
+
+        if (rankedPlayers.Count > 2)
+            SetScoreboardText(ThirdPlaceUI, "3rd", rankedPlayers[2]);
+
+        if (rankedPlayers.Count > 3)
+            SetScoreboardText(FourthPlaceUI, "4th", rankedPlayers[3]);
+
+        IntroUI.SetActive(false);
+        ScoreBoardUI.SetActive(true);
+        isScoreboardSetUp = true;
+    }
+
+    private void SetScoreboardText(
+        GameObject scoreboardEntry,
+        string rank,
+        PlayerNetwork player)
+    {
+        var text = scoreboardEntry.GetComponent<TMP_Text>();
+
+        text.SetText($"{rank}: {player.name} - {player.score.value}");
+    }
+
+    [ServerRpc(Channel.Unreliable)]
+    public void ResetPlayerScores()
+    {
+        if (_roundNumber.value == maxRounds)
+        {
+            foreach (var player in PlayerNetwork.allPlayers)
+            {
+                player.Value.score.value = 0;
+            }
+        }
+    
+    }
 
 }
