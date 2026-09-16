@@ -6,6 +6,8 @@ using PurrNet.Transports;
 using System.Collections;
 using TMPro;
 using UnityEngine;
+using UnityEngine.AdaptivePerformance;
+using static Unity.VisualScripting.Member;
 
 public class PlayerPhysics : NetworkBehaviour
 {
@@ -13,6 +15,7 @@ public class PlayerPhysics : NetworkBehaviour
     //[SerializeField] private float jumpForce = 10f;
     [SerializeField] private float bounceForce = 10f;
     [SerializeField] private Rigidbody rigidbody;
+    public AudioSource PlayerAudio;
     //public float maxPower = 10f;
     //private bool isDragging = false;
     //private Vector3 startPoint;
@@ -23,7 +26,16 @@ public class PlayerPhysics : NetworkBehaviour
     public Material P2;
     public Material P3;
     public Material P4;
+
+    public Material P1T;
+    public Material P2T;
+    public Material P3T;
+    public Material P4T;
+
+
     public GameObject launchForceText;
+
+    public int PlayerNumber;
 
 
     public float launchForce;
@@ -38,6 +50,7 @@ public class PlayerPhysics : NetworkBehaviour
     public Vector3 targetPos;
     public TrailRenderer trail;
     public GameObject particles;
+    public bool isPaused;
 
     protected override void OnSpawned(bool asServer)
     {
@@ -67,9 +80,11 @@ public class PlayerPhysics : NetworkBehaviour
 
 
         var colors = new[] { P1, P2, P3, P4 };
+        var Tcolors = new[] { P1T, P2T, P3T, P4T };
         int index = (int)(owner.Value.id % (ulong)colors.Length - 1);
         GetComponentInChildren<MeshRenderer>().material = colors[index];
-        trail.material = colors[index];
+        trail.material = Tcolors[index];
+        PlayerNumber = index +1;
     }
 
     protected override void OnDestroy()
@@ -106,6 +121,11 @@ public class PlayerPhysics : NetworkBehaviour
             particles.SetActive(false);
         }
 
+        if (this.transform.position.x > 17f || this.transform.position.x < -17f || this.transform.position.z > 9 || this.transform.position.z < -9 || this.transform.position.y < -1f)
+        {
+            this.transform.position = new Vector3(0, 0.5f, 0);
+        }
+
 
 
         currentValue = Mathf.Lerp(currentValue, targetValue, smoothSpeed * Time.deltaTime);
@@ -131,6 +151,21 @@ public class PlayerPhysics : NetworkBehaviour
             StartCoroutine(CountdownToLaunch());
 
         }
+
+        //if (Input.GetKeyDown(KeyCode.M))
+        //{
+        //    if (isPaused == false)
+        //    {
+        //        isPaused = true;
+        //        PlayerAudio.volume = 0;
+        //    }
+        //    else if (isPaused == true)
+        //    {
+        //        isPaused = false;
+        //        PlayerAudio.volume = 0.5f;
+        //    }
+        //}
+
     }
 
     public IEnumerator CountdownToLaunch()
@@ -261,12 +296,22 @@ public class PlayerPhysics : NetworkBehaviour
         var direction = (transform.position - other.transform.position).normalized;
         rigidbody.AddForce(direction * bounceForce, ForceMode.Impulse);
 
+
+
     }
 
     // The "Ready" trigger area is the square in the middle of the map. When a player enters it, they are marked as ready. When they leave, they are marked as not ready.
     // This is used to determine when all players are ready to start the game. The GameManager script checks the isReady variable of each player to determine if the game can start.
     private void OnTriggerEnter(Collider other)
     {
+
+        if (other.CompareTag("Player"))
+        {
+            float randomInt = Random.Range(0.5f, 1.5f);
+            PlayerAudio.pitch = randomInt;
+            PlayerAudio.Play();
+        }
+
         if (other.CompareTag("Ready"))
         {
             // Handle collection

@@ -12,6 +12,7 @@ public class PlayerNetwork : PlayerIdentity <PlayerNetwork>
     public bool isReady;
     public SyncVar<int> score = new SyncVar<int>(0);
     public int playerID;
+    public int playerNumber;
 
     [SerializeField] public int ballPosition;
     SyncVar<int> ballPositionSyncVar = new SyncVar<int>(0);

@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: QuestionStarWars
   m_EditorClassIdentifier: Assembly-CSharp::QuestionScriptableObject
   id: 35
-  questionText: As of September 2026, how many official Star Wars films have been?
+  questionText: As of September 2026, how many official Star Wars films have been made?
   answer: 13
   answerRange: {x: 3, y: 20}
   image: {fileID: 21300000, guid: 416a111804d60bb4082e69ca69fa5340, type: 3}

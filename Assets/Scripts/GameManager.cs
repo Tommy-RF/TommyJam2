@@ -7,11 +7,11 @@ using PurrNet;
 using PurrNet.Transports;
 using TMPro;
 using UnityEngine;
+using UnityEngine.InputSystem.LowLevel;
 
 public class GameManager : NetworkBehaviour
 {
 
-    public GameObject ExampleObject;
     public GameObject ReadyToPlayObject;
 
     [SerializeField] private GameObject ScoreBoardUI;
@@ -29,11 +29,29 @@ public class GameManager : NetworkBehaviour
     [SerializeField] private GameObject AnswerMinText;
     [SerializeField] private GameObject AnswerMaxText;
 
+    [SerializeField] private GameObject P1;
+    [SerializeField] private GameObject P2;
+    [SerializeField] private GameObject P3;
+    [SerializeField] private GameObject P4;
+
+    [SerializeField] private GameObject WinningPlayer;
+
+    public int Player1;
+    public int Player2;
+    public int Player3;
+    public int Player4;
+
+
     public GameObject CorrectPlacer;
     public GameObject CorrectPlacerText;
-    public GameObject CorrectPlacerImage;
+    public GameObject CorrectPlacerImageBlue;
+    public GameObject CorrectPlacerImageRed;
+    public GameObject CorrectPlacerImageGreen;
+    public GameObject CorrectPlacerImageYellow;
     public GameObject MinArea;
     public GameObject MaxArea;
+
+    public AudioSource gameSFX;
 
     public int PlayerReadyCount;
     public int PlayerCount;
@@ -50,7 +68,8 @@ public class GameManager : NetworkBehaviour
     public int TurnNumber;
 
     // The target answer position is the position on the x axis where the correct answer is located. It is calculated based on the question's answer value and the min and max answer values.
-    public int targetAnswerPosition;
+    [SerializeField] private SyncVar<int> targetAnswerPosition = new SyncVar<int>(0);
+    [SerializeField] private SyncVar<int> awayPosition = new SyncVar<int>(-5);
 
     private int[] _PlayerBallPosition = new int[0];
 
@@ -84,7 +103,7 @@ public class GameManager : NetworkBehaviour
         _roundNumber.value = 0;
 
         CorrectPlacerText.SetActive(true);
-        CorrectPlacerImage.SetActive(true);
+        //CorrectPlacerImage.SetActive(true);
 
         // This is a lambda expression.
         // Whenever the _currentQuestionIndex SyncVar changes, the UpdateQuestionValues method is called to update the question values on all clients.
@@ -92,6 +111,12 @@ public class GameManager : NetworkBehaviour
         // I had to do this because there was an issue with the SyncVar and UpdateQuestionValues() method being called in the wrong order (network race hazard).
         // This way ensures that the question values are updated only after the _currentQuestionIndex changes, and not before.
         _currentQuestionIndex.onChanged += _ => UpdateQuestionValues();
+    }
+
+    protected override void OnDespawned()
+    {
+        base.OnDespawned();
+        _currentQuestionIndex.onChanged -= _ => UpdateQuestionValues();
     }
 
 
@@ -161,6 +186,7 @@ public class GameManager : NetworkBehaviour
         {
             UpdateText();
             GetPlayerBallPositions();
+            ;
         }
 
 
@@ -179,12 +205,11 @@ public class GameManager : NetworkBehaviour
             if (_questionCountdownTimer.value <= 0)
             {
                 QuestionTimerText.GetComponent<TMP_Text>().SetText("Time Up!");
-                CorrectPlacerImage.SetActive(true);
+                //CorrectPlacerImage.SetActive(true);
                 CorrectPlacerText.SetActive(true);
-                ChangeCorrectPlacer();
                 if (isServer)
                 {
-                    ChangeServerCorrectPlacer();
+                    ChangeServerCorrectPlacer(targetAnswerPosition.value, -1.8f, 0);
                     _GetTargetPosition();
                     _CalculatePlayerProximityToTarget();
                     if (!finishedRanking)
@@ -204,10 +229,13 @@ public class GameManager : NetworkBehaviour
             NextRoundPrep();
         }
 
-        else if (isServer &&RoundOver == true && _roundNumber.value >= maxRounds && isScoreboardSetUp == false)
+        if (isServer &&RoundOver == true && _roundNumber.value >= maxRounds && isScoreboardSetUp == false)
         {
             Debug.Log("Game Over! Prepping scoreboard...");
             //ResetPlayerScores();
+            UpdateCooldownTimer();
+
+            if (_cooldownTimer.value <= 0)
             SetUpScoreboard();
         }
     }
@@ -222,12 +250,17 @@ public class GameManager : NetworkBehaviour
 
             if (_cooldownTimer.value <= 1)
             {
-                CorrectPlacer.transform.position = new Vector3(targetAnswerPosition, -3f, 0);
+                ChangeServerCorrectPlacer(targetAnswerPosition.value, awayPosition.value, 0);
+                //CorrectPlacer.transform.position = new Vector3(targetAnswerPosition, -3f, 0);
             }
 
             if (_cooldownTimer.value <= 0 && RoundOver == true)
             {
-                _roundNumber.value++;
+                if (isServer)
+                {
+                    _roundNumber.value++;
+                }
+
                 _PickRandomQuestion();
                 GetQuestionValues();
                 SetQuestionText();
@@ -242,6 +275,11 @@ public class GameManager : NetworkBehaviour
 
     }
 
+    [ObserversRpc]
+    public void scoreboardFinished(bool set)
+    {
+        isScoreboardSetUp = set;
+    }
 
     [ServerRpc(Channel.Unreliable)]
     public void UpdateText()
@@ -271,16 +309,37 @@ public class GameManager : NetworkBehaviour
             if (_countdownTimer.value <= 0 && _isQuestionPicked == false)
             {
                 ClearText();
-                Ruler.SetActive(true);
-                BackgroundImage.SetActive(true);
+                GetPlayerIDs();
+                //Ruler.SetActive(true);
+                //BackgroundImage.SetActive(true);
                 _PickRandomQuestion();
                 GetQuestionValues();
                 if (isServer)
                 {
-                    _roundNumber.value++;
-                    SetQuestionText();
-                    _GetTargetPosition();
-                    _CalculatePlayerProximityToTarget();
+                    if (_roundNumber.value == 0)
+                    {
+                        if (isServer)
+                        {
+                            _roundNumber.value = 1;
+                        }
+                        
+                        SetQuestionText();
+                        _GetTargetPosition();
+                        _CalculatePlayerProximityToTarget();
+                        return;
+                    }
+                    else if (_roundNumber.value >= 1)
+                    {
+                        if (isServer)
+                        {
+                            _roundNumber.value++;
+                            maxRounds++;
+                        }
+                        SetQuestionText();
+                        _GetTargetPosition();
+                        _CalculatePlayerProximityToTarget();
+                    }
+
                 }
             }
         }
@@ -358,11 +417,16 @@ public class GameManager : NetworkBehaviour
             {
                 _questionCountdownTimer.value = 0;
             }
-            //QuestionTimerText.GetComponent<TMP_Text>().text = $"{Mathf.CeilToInt(_questionCountdownTimer.value)}...";
-            QuestionTimerText.GetComponent<TMP_Text>().text = $"{_questionCountdownTimer.value.ToString("F0")}...";
+            else if (_questionCountdownTimer.value >= 0.1f)
+            {
+                // QuestionTimerText.GetComponent<TMP_Text>().text = $"{Mathf.CeilToInt(_questionCountdownTimer.value)}...";
+                QuestionTimerText.GetComponent<TMP_Text>().text = $"{_questionCountdownTimer.value.ToString("F0")}...";
+            }
+                
         }
     
     }
+
 
 
     [ObserversRpc]
@@ -399,7 +463,9 @@ public class GameManager : NetworkBehaviour
                 _PlayerBallPosition[playerIndex] = player.Value.ballPosition;
 
                 playerIndex++;
-            }
+                
+
+        }
     
     }
 
@@ -417,29 +483,62 @@ public class GameManager : NetworkBehaviour
         var maxAnswerValue = _currentQuestionAnswerRange.value.y;
 
         var targetPosition = Mathf.Lerp(minAnswerPosition, maxAnswerPosition, (float) (_currentQuestionAnswer.value - minAnswerValue) / (maxAnswerValue - minAnswerValue));
-        targetAnswerPosition = Mathf.RoundToInt(targetPosition);
+        targetAnswerPosition.value = Mathf.RoundToInt(targetPosition);
     
     }
 
-    [ObserversRpc]
-    public void ChangeCorrectPlacer()
-    {
-        CorrectPlacer.transform.position = new Vector3(targetAnswerPosition, -1.8f, 0);
-    
-    }
+    //[ObserversRpc]
+    //public void ChangeCorrectPlacer(float x, float y, float z)
+    //{
+    //    CorrectPlacer.transform.position = new Vector3(x, y, z);
+    //    ChangeServerCorrectPlacer(x, y, z);
+    //}
 
     [ServerRpc]
-    public void ChangeServerCorrectPlacer()
+    public void ChangeServerCorrectPlacer(float x, float y, float z)
     {
-        CorrectPlacer.transform.position = new Vector3(targetAnswerPosition, -1.8f, 0);
-   
-   
+        CorrectPlacer.transform.position = new Vector3(x, y, z);
+        //ChangeCorrectPlacer(x, y, z);
+
     }
 
     public void ChangeCorrectText(string text)
     {
         CorrectPlacerText.GetComponent<TMP_Text>().SetText($"{text}");
     
+    }
+
+    [ObserversRpc(Channel.Unreliable)]
+    private void GetPlayerIDs()
+    {
+        GameObject[] players = GameObject.FindGameObjectsWithTag("Player");
+
+        foreach (GameObject player in players)
+        {
+            int playerId = player.GetComponent<PlayerPhysics>().PlayerNumber;
+
+            if (playerId == 1)
+            {
+                P1 = player;
+                P1.name = "P1 (Blue)";
+            }
+            if (playerId == 2)
+            {
+                P2 = player;
+                P2.name = "P2 (Red)";
+            }
+            if (playerId == 3)
+            {
+                P3 = player;
+                P3.name = "P3 (Green)";
+            }
+            if (playerId == 4)
+            {
+                P4 = player;
+                P4.name = "P4 (Yellow)";
+            }
+        }
+
     }
 
     // Calculates the proximity of each player's ball position to the target answer position and stores it in the answerProximity variable of each player.
@@ -449,7 +548,7 @@ public class GameManager : NetworkBehaviour
         foreach (var player in PlayerNetwork.allPlayers)
         {
             var playerBallPosition = player.Value.ballPosition;
-            var proximity = Mathf.Abs(playerBallPosition - targetAnswerPosition);
+            var proximity = Mathf.Abs(playerBallPosition - targetAnswerPosition.value);
             player.Value.answerProximity = (int) proximity;
 
             // Debug.Log($"Player {player.Value.id} ball position: {playerBallPosition}, target position: {targetAnswerPosition}, proximity: {proximity}");
@@ -463,12 +562,14 @@ public class GameManager : NetworkBehaviour
     [ServerRpc(Channel.Unreliable)]
     private void _RankClosestPlayers()
     {
+
         var rankedPlayers = new PlayerNetwork[PlayerNetwork.allPlayers.Count];
         var playerIndex = 0;
         foreach (var player in PlayerNetwork.allPlayers)
         {
             rankedPlayers[playerIndex] = player.Value;
             playerIndex++;
+
         }
         //Debug.Log(playerIndex);
 
@@ -485,39 +586,98 @@ public class GameManager : NetworkBehaviour
         }
 
         rankedPlayers[0].score.value++;
+        WinningPlayer = rankedPlayers[0].gameObject;
+        if (WinningPlayer.GetComponent<PlayerPhysics>().PlayerNumber == 1)
+        {
+            CorrectImageSetter(1);
+        }
+        if (WinningPlayer.GetComponent<PlayerPhysics>().PlayerNumber == 2)
+        {
+            CorrectImageSetter(2);
+        }
+        if (WinningPlayer.GetComponent<PlayerPhysics>().PlayerNumber == 3)
+        {
+            CorrectImageSetter(3);
+        }
+        if (WinningPlayer.GetComponent<PlayerPhysics>().PlayerNumber == 4)
+        {
+            CorrectImageSetter(4);
+        }
         Debug.Log("Player " + rankedPlayers[0].id + " scored a point! Total score: " + rankedPlayers[0].score.value);
+
+        
 
 
     }
 
     [ObserversRpc]
+    public void CorrectImageSetter(int colour)
+    {
+        CorrectPlacerImageBlue.SetActive(false);
+        CorrectPlacerImageRed.SetActive(false);
+        CorrectPlacerImageGreen.SetActive(false);
+        CorrectPlacerImageYellow.SetActive(false);
+
+        if (colour == 1)
+        {
+            CorrectPlacerImageBlue.SetActive(true);
+        }
+        
+        if (colour == 2)
+        {
+            CorrectPlacerImageRed.SetActive(true);
+        }
+        if (colour == 3)
+        {
+            CorrectPlacerImageGreen.SetActive(true);
+        }
+        if (colour == 4)
+        {
+            CorrectPlacerImageYellow.SetActive(true);
+        }
+    }
+
+    [ObserversRpc]
     public void SetUpScoreboard()
     {
-        var rankedPlayers = new List<PlayerNetwork>(PlayerNetwork.allPlayers.Values);
-
-        rankedPlayers.Sort((first, second) =>
-            second.score.value.CompareTo(first.score.value));
-
-        if (rankedPlayers.Count == 0)
+        if (isScoreboardSetUp == false)
         {
-            Debug.LogWarning("Cannot populate scoreboard: no players found.");
-            return;
+            var rankedPlayers = new List<PlayerNetwork>(PlayerNetwork.allPlayers.Values);
+
+            rankedPlayers.Sort((first, second) =>
+                second.score.value.CompareTo(first.score.value));
+
+            if (rankedPlayers.Count == 0)
+            {
+                Debug.LogWarning("Cannot populate scoreboard: no players found.");
+                return;
+            }
+
+            SetScoreboardText(FirstPlaceUI, "1st", rankedPlayers[0]);
+
+            if (rankedPlayers.Count > 1)
+                SetScoreboardText(SecondPlaceUI, "2nd", rankedPlayers[1]);
+
+            if (rankedPlayers.Count > 2)
+                SetScoreboardText(ThirdPlaceUI, "3rd", rankedPlayers[2]);
+
+            if (rankedPlayers.Count > 3)
+                SetScoreboardText(FourthPlaceUI, "4th", rankedPlayers[3]);
+
+            IntroUI.SetActive(false);
+            //CorrectPlacerImage.SetActive(false);
+            //CorrectPlacerText.SetActive(false);
+            CorrectPlacer.SetActive(false);
+            //ChangeServerCorrectPlacer(0, -5, 0);
+            
+            ScoreBoardUI.SetActive(true);
+            //isScoreboardSetUp = true;
+
+            gameSFX.Play();
+            scoreboardFinished(true);
+
         }
 
-        SetScoreboardText(FirstPlaceUI, "1st", rankedPlayers[0]);
-
-        if (rankedPlayers.Count > 1)
-            SetScoreboardText(SecondPlaceUI, "2nd", rankedPlayers[1]);
-
-        if (rankedPlayers.Count > 2)
-            SetScoreboardText(ThirdPlaceUI, "3rd", rankedPlayers[2]);
-
-        if (rankedPlayers.Count > 3)
-            SetScoreboardText(FourthPlaceUI, "4th", rankedPlayers[3]);
-
-        IntroUI.SetActive(false);
-        ScoreBoardUI.SetActive(true);
-        isScoreboardSetUp = true;
     }
 
     private void SetScoreboardText(
